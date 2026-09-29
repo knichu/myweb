@@ -5,8 +5,542 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BNK부산은행</title>
-    <link rel="stylesheet" href="css/indexStyle.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
 </head>
+<style>
+    /* ==================================================
+    0. 공통 설정
+    ================================================== */
+    :root {
+        --red: #e2231a;
+        --navy: #1a2b4c;
+        --text: #333;
+        --text-sub: #767676;
+        --line: #e1e1e1;
+        --bg-gray: #f5f6f8;
+        --radius: 12px;
+        --inner: 1200px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    img {
+        max-width: 100%;
+        display: block;
+    }
+
+    body {
+        font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text);
+    }
+
+    /* 화면에서는 숨기고 스크린리더만 읽음 */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    /* 가운데 정렬 + 최대폭 (여러 곳에서 재사용) */
+    .inner,
+    .mcon-wrap {
+        max-width: var(--inner);
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* ==================================================
+    1. 단순 묶음
+    ================================================== */
+    .wrap {
+        min-width: 320px;
+    }
+
+    /* ==================================================
+    2. 탑 nav : 본문 바로가기 (Tab 키 누르면 나타남)
+    ================================================== */
+    .skip-link {
+        position: absolute;
+        top: -100px;
+        left: 0;
+        z-index: 100;
+        padding: 10px 20px;
+        background: var(--navy);
+        color: #fff;
+
+        &:focus {
+            top: 0;
+        }
+    }
+
+    /* ==================================================
+    3. 머릿글
+    ================================================== */
+    .topMain {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .topMain-inner {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .logo img {
+        height: 32px;
+    }
+
+    .gnb ul {
+        display: flex;
+        gap: 36px;
+
+        & a {
+            font-size: 18px;
+            font-weight: 700;
+
+            &:hover {
+                color: var(--red);
+            }
+        }
+    }
+
+    .util-nav {
+        margin-left: auto;
+        /* 오른쪽 끝으로 */
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 14px;
+    }
+
+    /* 버튼: 기본 + 색 변형 */
+    .btn {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 18px;
+        font-weight: 700;
+    }
+
+    .btn-red {
+        background: var(--red);
+        color: #fff;
+    }
+
+    .btn-outline {
+        border: 1px solid var(--line);
+    }
+
+    /* 드롭다운: 마우스 올리거나 Tab으로 들어가면 열림 */
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        min-width: 120px;
+        margin-top: 4px;
+        padding: 6px 0;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, .08);
+        font-size: 14px;
+        font-weight: 400;
+
+        & a {
+            display: block;
+            padding: 6px 14px;
+
+            &:hover {
+                background: var(--bg-gray);
+            }
+        }
+    }
+
+    .dropdown-up .dropdown-menu {
+        top: auto;
+        bottom: 100%;
+        margin: 0 0 4px;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+        display: block;
+    }
+
+    /* ==================================================
+    4. 내용
+    ================================================== */
+
+    /* 4-1. 배너 + 서비스 3개 */
+    .kv-area {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .banner {
+        position: relative;
+    }
+
+    /* JS 없이 옆으로 넘기는 슬라이드: scroll-snap */
+    .banner-list {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        border-radius: var(--radius);
+        scrollbar-width: none;
+        /* 스크롤바 숨김 */
+    }
+
+    .banner-item {
+        flex: 0 0 100%;
+        /* 한 장이 전체 폭 */
+        scroll-snap-align: start;
+
+        & a {
+            display: flex;
+            align-items: center;
+            height: 340px;
+            padding: 0 60px 40px;
+        }
+
+        &:nth-child(1) a {
+            background: #eef2fb;
+        }
+
+        &:nth-child(2) a {
+            background: #fdecea;
+        }
+
+        &:nth-child(3) a {
+            background: #fff6e5;
+        }
+
+        &:nth-child(4) a {
+            background: #eaf7f1;
+        }
+
+        &:nth-child(5) a {
+            background: #f3eefb;
+        }
+    }
+
+    .banner-title {
+        max-width: 440px;
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 1.35;
+        color: var(--navy);
+    }
+
+    .banner-dots {
+        position: absolute;
+        left: 60px;
+        bottom: 30px;
+        display: flex;
+        gap: 6px;
+
+        & a {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .2);
+
+            &:hover {
+                background: var(--red);
+            }
+        }
+    }
+
+    .service {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .service-btn {
+        flex: 1;
+        /* 3개가 높이를 똑같이 나눔 */
+        display: flex;
+        align-items: center;
+        padding: 0 28px;
+        border-radius: var(--radius);
+        font-size: 18px;
+        font-weight: 700;
+        background: var(--bg-gray);
+
+        &.btn-red {
+            background: var(--red);
+            color: #fff;
+        }
+
+        &.btn-navy {
+            background: var(--navy);
+            color: #fff;
+        }
+    }
+
+    /* 4-2. 상품 5개 */
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        margin-top: 30px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+
+        & li+li {
+            border-left: 1px solid var(--line);
+        }
+    }
+
+    .product-card {
+        display: block;
+        padding: 26px 24px;
+
+        &:hover .product-title {
+            color: var(--red);
+        }
+    }
+
+    .product-title {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 17px;
+    }
+
+    .product-desc {
+        font-size: 13px;
+        color: var(--text-sub);
+    }
+
+    /* 4-3. 새소식 / 이벤트 / 기타 6개 */
+    .board-area {
+        display: grid;
+        grid-template-columns: 1fr 1fr 280px;
+        gap: 40px;
+        margin-top: 50px;
+        margin-bottom: 60px;
+    }
+
+    .board-title {
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--text);
+        font-size: 20px;
+
+        & a::after {
+            content: " ›";
+            color: var(--text-sub);
+        }
+    }
+
+    .board-item {
+        border-bottom: 1px solid var(--line);
+
+        & a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 11px 0;
+            font-size: 14px;
+        }
+
+        & a:hover .board-text {
+            text-decoration: underline;
+        }
+
+        /* 새글 표시 */
+        &.is-new a::after {
+            content: "";
+            flex-shrink: 0;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--red);
+        }
+    }
+
+    /* 긴 제목은 한 줄로 자르고 ... 표시 */
+    .board-text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    /* > 로 바로 아래 ul만 지정 (안쪽 드롭다운 ul까지 grid가 되는 버그 수정) */
+    .util-menu>ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .tile {
+        display: block;
+        padding: 16px;
+        border-radius: 10px;
+        background: var(--bg-gray);
+        font-size: 14px;
+        font-weight: 700;
+
+        &:hover {
+            background: #eceef2;
+        }
+    }
+
+    /* ==================================================
+    5. 기타 링크
+    ================================================== */
+    .etcLink {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+    }
+
+    .etc-link {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 22px;
+        padding: 16px 0;
+        font-size: 13px;
+
+        & li:first-child a {
+            color: var(--red);
+            font-weight: 700;
+        }
+    }
+
+    /* ==================================================
+    6. 바닥글
+    ================================================== */
+    .footer {
+        background: var(--bg-gray);
+        font-size: 13px;
+        color: var(--text-sub);
+    }
+
+    .foot-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-top: 30px;
+    }
+
+    .contact-list {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .sns-area {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+
+        & a {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid var(--line);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text);
+        }
+    }
+
+    .link-t2 {
+        display: flex;
+        gap: 8px;
+    }
+
+    .select-btn {
+        display: flex;
+        justify-content: space-between;
+        width: 180px;
+        padding: 9px 14px;
+        background: #fff;
+        border: 1px solid #ccc;
+        color: var(--text);
+
+        &::after {
+            content: "▾";
+        }
+    }
+
+    .copyrights {
+        padding: 24px 0 40px;
+        font-size: 12px;
+    }
+
+    /* ==================================================
+    7. 반응형 (900px 이하)
+    ================================================== */
+    @media (max-width: 900px) {
+
+        .gnb,
+        .hide-mobile {
+            display: none;
+        }
+
+        .kv-area,
+        .board-area {
+            grid-template-columns: 1fr;
+        }
+
+        .service {
+            flex-direction: row;
+        }
+
+        .service-btn {
+            padding: 18px;
+            font-size: 15px;
+        }
+
+        .product-list {
+            grid-template-columns: repeat(2, 1fr);
+
+            & li+li {
+                border-left: 0;
+            }
+
+            & li {
+                border-bottom: 1px solid var(--line);
+            }
+        }
+
+        .foot-link {
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+</style>
 
 <body>
     <div class="wrap">
@@ -105,11 +639,16 @@
             <!-- 상품 5개 -->
             <div class="mcon-wrap">
                 <ul class="product-list">
-                    <li><a href="#" class="product-card"><strong class="product-title">베스트상품</strong><span class="product-desc">온라인판매 TOP5</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">목적별상품</strong><span class="product-desc">상황에 맞는 자금 관리</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">생애주기별상품</strong><span class="product-desc">청소년기와 함께 해야하는</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">고객별상품</strong><span class="product-desc">유아기부터 은퇴설계까지</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">신규상품</strong><span class="product-desc">최근 6개월이내 출시</span></a></li>
+                    <li><a href="#" class="product-card"><strong class="product-title">베스트상품</strong><span
+                                class="product-desc">온라인판매 TOP5</span></a></li>
+                    <li><a href="#" class="product-card"><strong class="product-title">목적별상품</strong><span
+                                class="product-desc">상황에 맞는 자금 관리</span></a></li>
+                    <li><a href="#" class="product-card"><strong class="product-title">생애주기별상품</strong><span
+                                class="product-desc">청소년기와 함께 해야하는</span></a></li>
+                    <li><a href="#" class="product-card"><strong class="product-title">고객별상품</strong><span
+                                class="product-desc">유아기부터 은퇴설계까지</span></a></li>
+                    <li><a href="#" class="product-card"><strong class="product-title">신규상품</strong><span
+                                class="product-desc">최근 6개월이내 출시</span></a></li>
                 </ul>
             </div>
 
@@ -118,21 +657,29 @@
                 <section>
                     <h2 class="board-title"><a href="#">새소식</a></h2>
                     <ul>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">NPL채권매각 관련 신용정보 제공 사실통지(한그루제오차유동화전문 유한회사)</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">농할상품권 10월 발행 안내(제로페이 모바일상품권 20%할인)</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">BNK 금융사다리적금 약관개정 안내</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">(핀테크상품 확대 구축) 입찰 재공고안내</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">추석 명절 전후 보이스피싱 피해에 주의하세요!</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">(종료) (고객망 패킷데이터 변환시스템 유지보수) 입찰 재공고안내</span><span class="sr-only">새글</span></a></li>
+                        <li class="board-item is-new"><a href="#"><span class="board-text">NPL채권매각 관련 신용정보 제공
+                                    사실통지(한그루제오차유동화전문 유한회사)</span><span class="sr-only">새글</span></a></li>
+                        <li class="board-item is-new"><a href="#"><span class="board-text">농할상품권 10월 발행 안내(제로페이 모바일상품권
+                                    20%할인)</span><span class="sr-only">새글</span></a></li>
+                        <li class="board-item is-new"><a href="#"><span class="board-text">BNK 금융사다리적금 약관개정
+                                    안내</span><span class="sr-only">새글</span></a></li>
+                        <li class="board-item is-new"><a href="#"><span class="board-text">(핀테크상품 확대 구축) 입찰
+                                    재공고안내</span><span class="sr-only">새글</span></a></li>
+                        <li class="board-item is-new"><a href="#"><span class="board-text">추석 명절 전후 보이스피싱 피해에
+                                    주의하세요!</span><span class="sr-only">새글</span></a></li>
+                        <li class="board-item is-new"><a href="#"><span class="board-text">(종료) (고객망 패킷데이터 변환시스템 유지보수)
+                                    입찰 재공고안내</span><span class="sr-only">새글</span></a></li>
                     </ul>
                 </section>
 
                 <section>
                     <h2 class="board-title"><a href="#">이벤트</a></h2>
                     <ul>
-                        <li class="board-item"><a href="#"><span class="board-text">한국거래소 X 부산은행 골드바 증정 이벤트</span></a></li>
+                        <li class="board-item"><a href="#"><span class="board-text">한국거래소 X 부산은행 골드바 증정 이벤트</span></a>
+                        </li>
                         <li class="board-item"><a href="#"><span class="board-text">수익률 1위 달성 IRP 이벤트</span></a></li>
-                        <li class="board-item"><a href="#"><span class="board-text">법무사님들을 위한 채권발행 응원 한 잔 이벤트</span></a></li>
+                        <li class="board-item"><a href="#"><span class="board-text">법무사님들을 위한 채권발행 응원 한 잔 이벤트</span></a>
+                        </li>
                         <li class="board-item"><a href="#"><span class="board-text">생활요금 자동납부 캐시백 이벤트</span></a></li>
                         <li class="board-item"><a href="#"><span class="board-text">대학교등록금 무이자할부 이벤트</span></a></li>
                         <li class="board-item"><a href="#"><span class="board-text">빵빵체크카드 출시!</span></a></li>
@@ -182,9 +729,12 @@
                             <li>해외 82-2-1588-6200</li>
                         </ul>
                         <ul class="sns-area">
-                            <li><a href="https://www.facebook.com/busanbank/" target="_blank" aria-label="부산은행 페이스북">f</a></li>
-                            <li><a href="https://www.instagram.com/bnk_busanbank/" target="_blank" aria-label="부산은행 인스타그램">IG</a></li>
-                            <li><a href="https://www.youtube.com/c/Busanbankbnk" target="_blank" aria-label="부산은행 유튜브">▶</a></li>
+                            <li><a href="https://www.facebook.com/busanbank/" target="_blank"
+                                    aria-label="부산은행 페이스북">f</a></li>
+                            <li><a href="https://www.instagram.com/bnk_busanbank/" target="_blank"
+                                    aria-label="부산은행 인스타그램">IG</a></li>
+                            <li><a href="https://www.youtube.com/c/Busanbankbnk" target="_blank"
+                                    aria-label="부산은행 유튜브">▶</a></li>
                         </ul>
                     </div>
 
