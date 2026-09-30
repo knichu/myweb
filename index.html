@@ -1,241 +1,146 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BNK부산은행</title>
-    <link rel="stylesheet" href="css/indexStyle.css">
+    <title>마우스 벤치마크</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="wrap">
+    
+    <div class="container">
+        <div class="header">
+            <div class="header_box">
+                <div class="logo">
+                    <a href="index.html"><img src="images/sample_logo.jpg"></a>
+                </div> <!-- logo -->
 
-        <!-- 탑 nav : 본문 바로가기 -->
-        <div class="topNav">
-            <a href="#content" class="skip-link">본문으로 바로가기</a>
-        </div>
+                <div class="header_menu">
 
-        <!-- 머릿글 -->
-        <header class="topMain">
-            <div class="inner topMain-inner">
-                <h1 class="logo">
-                    <a href="#">
-                        <img src="https://www.busanbank.co.kr/resource/img/tit/h1_busanbank_new.png" alt="BNK 부산은행">
-                    </a>
-                </h1>
+                    <div class="top_menu">
+                        <ul>
+                            <li><a href="#">홍길동 님</a></li><li>|</li>
+                            <li><a href="#">로그아웃</a></li><li>|</li>
+                            <li><a href="#">정보 수정</a></li>
+                        </ul>
+                    </div> <!-- top_menu -->
 
-                <nav class="gnb" aria-label="주메뉴">
-                    <ul>
-                        <li><a href="#">개인뱅킹</a></li>
-                        <li><a href="#">기업뱅킹</a></li>
-                        <li><a href="#">금융상품</a></li>
-                    </ul>
-                </nav>
+                    <div class="main_menu">
+                        <ul>
+                            <li><a href="index.html">마우스</a></li><li>|</li>
+                            <li><a href="#">키보드</a></li><li>|</li>
+                            <li><a href="#">모니터</a></li><li>|</li>
+                            <li><a href="#">이어폰</a></li><li>|</li>
+                            <li><a href="#">마우스패드</a></li><li>|</li>
+                            <li><a href="images/wireframe_main.png" target="_blank">화면설계서</a></li>
+                        </ul>
+                    </div> <!-- main_menu -->
+                </div> <!-- header_menu -->
+            </div> <!-- header_box -->
+        </div> <!-- header -->
 
-                <div class="util-nav">
-                    <div class="dropdown">
-                        <a href="#" class="btn btn-red">로그인</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">개인뱅킹</a></li>
-                            <li><a href="#">기업뱅킹</a></li>
+        <div class="contents">
+            <div class="contents_box">
+                <div class="sidebar">
+                    <div>
+                        <p>등급</p>
+                        <ul>
+                            <li>1등급</li>
+                            <li>2등급</li>
+                            <li>3등급</li>
+                            <li>4등급</li>
+                            <li>5등급</li>
                         </ul>
                     </div>
-                    <div class="dropdown">
-                        <a href="#" class="btn btn-outline">인증센터</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">개인뱅킹</a></li>
-                            <li><a href="#">기업뱅킹</a></li>
+                    <div>
+                        <p>가격</p>
+                        <ul>
+                            <li>200,000 이상</li>
+                            <li>150,000 ~ 200,000</li>
+                            <li>100,000 ~ 150,000</li>
+                            <li>50,000 ~ 100,000</li>
+                            <li>0 ~ 50,000</li>
                         </ul>
                     </div>
-                    <a href="#" class="hide-mobile">은행소개</a>
-                    <div class="dropdown hide-mobile">
-                        <a href="#">Global</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" lang="ko">한국어</a></li>
-                            <li><a href="#" lang="en">English</a></li>
-                            <li><a href="#" lang="ja">日本語</a></li>
-                            <li><a href="#" lang="zh">中國語</a></li>
+                    <div>
+                        <p>하우징</p>
+                        <ul>
+                            <li>대칭</li>
+                            <li>비대칭</li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- 내용 -->
-        <main class="mcontainer" id="content" tabindex="-1">
-
-            <!-- 배너 5개 + 서비스 3개 -->
-            <div class="mcon-wrap kv-area">
-                <div class="banner">
-                    <ul class="banner-list">
-                        <li class="banner-item" id="banner1">
-                            <a href="#"><strong class="banner-title">법인 비대면 계좌 개설 안내</strong></a>
-                        </li>
-                        <li class="banner-item" id="banner2">
-                            <a href="#"><strong class="banner-title">개인정보 유출사고에 따른 보이스피싱·스미싱 등 피해 유의 안내</strong></a>
-                        </li>
-                        <li class="banner-item" id="banner3">
-                            <a href="#"><strong class="banner-title">법무사님을 위한 채권발행 응원 한 잔 이벤트</strong></a>
-                        </li>
-                        <li class="banner-item" id="banner4">
-                            <a href="#"><strong class="banner-title">대출 이자(원리금) 자동출금 시간 및 방법 변경 안내</strong></a>
-                        </li>
-                        <li class="banner-item" id="banner5">
-                            <a href="#"><strong class="banner-title">민생지원 사칭 스미싱 주의 개인정보 유출 위험</strong></a>
-                        </li>
-                    </ul>
-                    <!-- 점을 누르면 해당 id로 이동 = 앵커 -->
-                    <div class="banner-dots">
-                        <a href="#banner1"><span class="sr-only">1번 배너</span></a>
-                        <a href="#banner2"><span class="sr-only">2번 배너</span></a>
-                        <a href="#banner3"><span class="sr-only">3번 배너</span></a>
-                        <a href="#banner4"><span class="sr-only">4번 배너</span></a>
-                        <a href="#banner5"><span class="sr-only">5번 배너</span></a>
-                    </div>
-                </div>
-
-                <div class="service">
-                    <a href="#" class="service-btn btn-red">빠른조회서비스</a>
-                    <a href="#" class="service-btn btn-navy">사고분실신고</a>
-                    <a href="#" class="service-btn">금융소비자보호</a>
-                </div>
-            </div>
-
-            <!-- 상품 5개 -->
-            <div class="mcon-wrap">
-                <ul class="product-list">
-                    <li><a href="#" class="product-card"><strong class="product-title">베스트상품</strong><span
-                                class="product-desc">온라인판매 TOP5</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">목적별상품</strong><span
-                                class="product-desc">상황에 맞는 자금 관리</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">생애주기별상품</strong><span
-                                class="product-desc">청소년기와 함께 해야하는</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">고객별상품</strong><span
-                                class="product-desc">유아기부터 은퇴설계까지</span></a></li>
-                    <li><a href="#" class="product-card"><strong class="product-title">신규상품</strong><span
-                                class="product-desc">최근 6개월이내 출시</span></a></li>
-                </ul>
-            </div>
-
-            <!-- 새소식 / 이벤트 / 기타 6개 -->
-            <div class="mcon-wrap board-area">
-                <section>
-                    <h2 class="board-title"><a href="#">새소식</a></h2>
-                    <ul>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">NPL채권매각 관련 신용정보 제공
-                                    사실통지(한그루제오차유동화전문 유한회사)</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">농할상품권 10월 발행 안내(제로페이 모바일상품권
-                                    20%할인)</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">BNK 금융사다리적금 약관개정
-                                    안내</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">(핀테크상품 확대 구축) 입찰
-                                    재공고안내</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">추석 명절 전후 보이스피싱 피해에
-                                    주의하세요!</span><span class="sr-only">새글</span></a></li>
-                        <li class="board-item is-new"><a href="#"><span class="board-text">(종료) (고객망 패킷데이터 변환시스템 유지보수)
-                                    입찰 재공고안내</span><span class="sr-only">새글</span></a></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2 class="board-title"><a href="#">이벤트</a></h2>
-                    <ul>
-                        <li class="board-item"><a href="#"><span class="board-text">한국거래소 X 부산은행 골드바 증정 이벤트</span></a>
-                        </li>
-                        <li class="board-item"><a href="#"><span class="board-text">수익률 1위 달성 IRP 이벤트</span></a></li>
-                        <li class="board-item"><a href="#"><span class="board-text">법무사님들을 위한 채권발행 응원 한 잔 이벤트</span></a>
-                        </li>
-                        <li class="board-item"><a href="#"><span class="board-text">생활요금 자동납부 캐시백 이벤트</span></a></li>
-                        <li class="board-item"><a href="#"><span class="board-text">대학교등록금 무이자할부 이벤트</span></a></li>
-                        <li class="board-item"><a href="#"><span class="board-text">빵빵체크카드 출시!</span></a></li>
-                    </ul>
-                </section>
-
-                <nav class="util-menu" aria-label="고객 서비스">
-                    <ul>
-                        <li><a href="#" class="tile">상품공시실</a></li>
-                        <li><a href="#" class="tile">서식/약관/자료실</a></li>
-                        <li><a href="#" class="tile">금융소비자보호</a></li>
-                        <li><a href="#" class="tile">고객센터</a></li>
-                        <li><a href="#" class="tile">비교조회서비스</a></li>
-                        <li><a href="#" class="tile">서민금융</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </main>
-
-        <!-- 원본에서도 비어 있는 영역 (화면 오른쪽 퀵메뉴 / 서비스 링크 자리) -->
-        <div class="quickNav"></div>
-        <div class="inc_directNav"></div>
-
-        <!-- 기타 링크 -->
-        <nav class="etcLink" aria-label="약관 및 정책">
-            <ul class="inner etc-link">
-                <li><a href="#">개인정보처리방침</a></li>
-                <li><a href="#">경영공시</a></li>
-                <li><a href="#">고객정보취급방침</a></li>
-                <li><a href="#">보호금융상품등록부</a></li>
-                <li><a href="#">상품공시실</a></li>
-                <li><a href="#">전자민원접수</a></li>
-                <li><a href="#">전자금융이용자보호수칙</a></li>
-                <li><a href="#">전자금융사기피해금환급제도</a></li>
-                <li><a href="#">위치기반서비스 이용약관</a></li>
-            </ul>
-        </nav>
-
-        <!-- 바닥글 -->
-        <footer class="footer">
-            <div class="inner footer-inner">
-                <div class="foot-link">
-                    <div class="link-t1">
-                        <ul class="contact-list">
-                            <li>고객상담 1588-6200, 1544-6200</li>
-                            <li>어르신 전용 1800-1100</li>
-                            <li>해외 82-2-1588-6200</li>
-                        </ul>
-                        <ul class="sns-area">
-                            <li><a href="https://www.facebook.com/busanbank/" target="_blank"
-                                    aria-label="부산은행 페이스북">f</a></li>
-                            <li><a href="https://www.instagram.com/bnk_busanbank/" target="_blank"
-                                    aria-label="부산은행 인스타그램">IG</a></li>
-                            <li><a href="https://www.youtube.com/c/Busanbankbnk" target="_blank"
-                                    aria-label="부산은행 유튜브">▶</a></li>
+                    <div>
+                        <p>센서</p>
+                        <ul>
+                            <li>플래그십</li>
+                            <li>하이엔드</li>
+                            <li>미들</li>
+                            <li>보급형</li>
                         </ul>
                     </div>
-
-                    <div class="link-t2">
-                        <div class="dropdown dropdown-up">
-                            <button type="button" class="select-btn">BNK금융네트워크</button>
-                            <ul class="dropdown-menu">
-                                <li><a href="http://www.bnkfg.com/main/main.jsp" target="_blank">BNK금융지주</a></li>
-                                <li><a href="http://www.knbank.co.kr" target="_blank">경남은행</a></li>
-                                <li><a href="http://www.bnkcapital.co.kr" target="_blank">BNK캐피탈</a></li>
-                                <li><a href="http://www.bnkfn.co.kr/main.jspx" target="_blank">BNK투자증권</a></li>
-                                <li><a href="http://www.bnksb.com" target="_blank">BNK저축은행</a></li>
-                                <li><a href="http://www.bnkasset.co.kr" target="_blank">BNK자산운용</a></li>
-                                <li><a href="http://www.bnkci.co.kr" target="_blank">BNK신용정보</a></li>
-                                <li><a href="http://www.bnksys.co.kr" target="_blank">BNK시스템</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown dropdown-up">
-                            <button type="button" class="select-btn">FAMILY SITE</button>
-                            <ul class="dropdown-menu">
-                                <li><a href="http://cafe.daum.net/bopdongwooclub" target="_blank">부은동우회</a></li>
-                                <li><a href="http://www.gp-gp.co.kr" target="_blank">BNK부산은행 조은극장</a></li>
-                                <li><a href="http://www.bnkgallery.co.kr" target="_blank">BNK부산은행갤러리</a></li>
-                                <li><a href="https://museum.busanbank.co.kr" target="_blank">부산은행금융역사관</a></li>
-                                <li><a href="http://www.happybnk.co.kr" target="_blank">행복한 BNK</a></li>
-                            </ul>
-                        </div>
+                    <div>
+                        <p>무게</p>
+                        <ul>
+                            <li>50g 미만</li>
+                            <li>50g ~ 59g</li>
+                            <li>60g ~ 69g</li>
+                            <li>70g ~ 79g</li>
+                            <li>80g ~ 89g</li>
+                            <li>90g ~ 99g</li>
+                            <li>100g 이상</li>
+                        </ul>
                     </div>
-                </div>
+                </div> <!-- sidebar -->
+    
+                <div class="contents_body">
+                    <div class="main_contents">
+                        <table class="product_table">
+                            <thead>
+                                <tr>
+                                    <th class="name">상품명</th>
+                                    <th class="grade">등급</th>
+                                    <th class="price">가격</th>
+                                    <th class="housing">하우징</th>
+                                    <th class="sensor">센서</th>
+                                    <th class="weight">무게</th>
+                                    <th class="senser_speed">센서 응답속도</th>
+                                    <th class="click_speed">클릭 응답속도</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><a href="detail1.html">로지텍 G PRO X SUPERLIGHT 2</a></td><td>1등급</td><td>199,000원</td><td>대칭</td><td>HERO 2</td><td>60g</td><td>0.92ms</td><td>1.05ms</td></tr>
+                                <tr><td>레이저 바이퍼 V3 프로</td><td>1등급</td><td>239,000원</td><td>대칭</td><td>Focus Pro 35K Gen-2</td><td>54g</td><td>0.88ms</td><td>0.97ms</td></tr>
+                                <tr><td>레이저 데스애더 V3 프로</td><td>1등급</td><td>219,000원</td><td>비대칭</td><td>Focus Pro 30K</td><td>63g</td><td>0.95ms</td><td>1.02ms</td></tr>
+                                <tr><td>레이저 바이퍼 V2 프로</td><td>2등급</td><td>159,000원</td><td>대칭</td><td>Focus Pro 30K</td><td>58g</td><td>1.10ms</td><td>1.21ms</td></tr>
+                                <tr><td>레이저 바실리스크 V3 프로</td><td>3등급</td><td>229,000원</td><td>비대칭</td><td>Focus Pro 30K</td><td>112g</td><td>1.34ms</td><td>1.48ms</td></tr>
+                                <tr><td>로지텍 G PRO Wireless</td><td>3등급</td><td>129,000원</td><td>대칭</td><td>HERO 25K</td><td>80g</td><td>1.18ms</td><td>1.36ms</td></tr>
+                                <tr><td>로지텍 G502 X PLUS</td><td>3등급</td><td>189,000원</td><td>비대칭</td><td>HERO 25K</td><td>106g</td><td>1.42ms</td><td>1.63ms</td></tr>
+                                <tr><td>로지텍 G703 HERO</td><td>5등급</td><td>99,000원</td><td>비대칭</td><td>HERO 25K</td><td>95g</td><td>1.71ms</td><td>2.34ms</td></tr>
+                                <tr><td>로지텍 G305</td><td>5등급</td><td>45,000원</td><td>대칭</td><td>HERO</td><td>99g</td><td>1.85ms</td><td>2.56ms</td></tr>
+                                <tr><td>조위 EC2-CW</td><td>4등급</td><td>189,000원</td><td>비대칭</td><td>PMW3370</td><td>77g</td><td>1.52ms</td><td>1.87ms</td></tr>
+                                <tr><td>조위 EC2-C</td><td>4등급</td><td>89,000원</td><td>비대칭</td><td>PMW3360</td><td>73g</td><td>1.47ms</td><td>1.79ms</td></tr>
+                                <tr><td>펄사 X2V2</td><td>2등급</td><td>139,000원</td><td>대칭</td><td>PAW3395</td><td>52g</td><td>1.03ms</td><td>1.15ms</td></tr>
+                                <tr><td>람주 마야</td><td>2등급</td><td>129,000원</td><td>대칭</td><td>PAW3395</td><td>45g</td><td>1.07ms</td><td>1.19ms</td></tr>
+                                <tr><td>닌주소 소라 V2</td><td>2등급</td><td>149,000원</td><td>대칭</td><td>PAW3395</td><td>39g</td><td>1.12ms</td><td>1.24ms</td></tr>
+                                <tr><td>엔드게임기어 OP1 8k</td><td>1등급</td><td>99,000원</td><td>대칭</td><td>PAW3395</td><td>50g</td><td>0.90ms</td><td>0.99ms</td></tr>
+                                <tr><td>VXE R1 Pro</td><td>3등급</td><td>39,000원</td><td>대칭</td><td>PAW3395</td><td>49g</td><td>1.29ms</td><td>1.52ms</td></tr>
+                                <tr><td>글로리어스 Model O 2 Wireless</td><td>3등급</td><td>119,000원</td><td>대칭</td><td>BAMF 2.0</td><td>68g</td><td>1.38ms</td><td>1.66ms</td></tr>
+                                <tr><td>스틸시리즈 에어록스 3 와이어리스</td><td>5등급</td><td>119,000원</td><td>대칭</td><td>TrueMove Air</td><td>68g</td><td>1.94ms</td><td>2.41ms</td></tr>
+                                <tr><td>커세어 M75 AIR</td><td>3등급</td><td>139,000원</td><td>대칭</td><td>Marksman 26K</td><td>60g</td><td>1.31ms</td><td>1.58ms</td></tr>
+                                <tr><td>하이퍼X 펄스파이어 헤이스트 2 와이어리스</td><td>4등급</td><td>99,000원</td><td>대칭</td><td>26K 광센서</td><td>61g</td><td>1.40ms</td><td>1.72ms</td></tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- main_contents -->
+                </div> <!-- contents_body -->
 
-                <div class="copy-area">
-                    <p class="copyrights">COPYRIGHT ⓒ 2014 BUSANBANK. ALL RIGHTS RESERVED.</p>
-                </div>
-            </div>
-        </footer>
-    </div>
+            </div> <!-- contents_box -->
+        </div> <!-- content -->
+
+        <div class="footer">
+
+        </div> <!-- footer -->
+
+    </div> <!-- container -->
 </body>
-
 </html>
