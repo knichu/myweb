@@ -3,144 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마우스 벤치마크</title>
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/main.css">
+    <title>이야기 우체국</title>
+
+    <!-- 글꼴 (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/common-style.css">
+    <link rel="stylesheet" href="css/index-style.css">
 </head>
 <body>
-    
-    <div class="container">
-        <div class="header">
-            <div class="header_box">
-                <div class="logo">
-                    <a href="index.html"><img src="images/sample_logo.jpg"></a>
-                </div> <!-- logo -->
+    <div class="container hub">
 
-                <div class="header_menu">
+        <!-- 헤더 -->
+        <header class="header">
+            <a href="index.html" class="logo">이야기 우체국</a>
+        </header>
 
-                    <div class="top_menu">
-                        <ul>
-                            <li><a href="#">홍길동 님</a></li><li>|</li>
-                            <li><a href="#">로그아웃</a></li><li>|</li>
-                            <li><a href="#">정보 수정</a></li>
-                        </ul>
-                    </div> <!-- top_menu -->
+        <main class="hub-main">
 
-                    <div class="main_menu">
-                        <ul>
-                            <li><a href="index.html">마우스</a></li><li>|</li>
-                            <li><a href="#">키보드</a></li><li>|</li>
-                            <li><a href="#">모니터</a></li><li>|</li>
-                            <li><a href="#">이어폰</a></li><li>|</li>
-                            <li><a href="#">마우스패드</a></li><li>|</li>
-                            <li><a href="images/wireframe_main.png" target="_blank">산출물</a></li>
-                        </ul>
-                    </div> <!-- main_menu -->
-                </div> <!-- header_menu -->
-            </div> <!-- header_box -->
-        </div> <!-- header -->
+            <!-- 제목 -->
+            <section class="hub-head">
+                <h1 class="hub-title">오늘은 어떤 이야기를<br>건네 볼까요?</h1>
+                <p class="hub-desc">마음을 적어 보내는 카드부터, 잠들기 전 듣는 동화까지</p>
+            </section>
 
-        <div class="contents">
-            <div class="contents_box">
-                <div class="sidebar">
-                    <div>
-                        <p>등급</p>
-                        <ul>
-                            <li>1등급</li>
-                            <li>2등급</li>
-                            <li>3등급</li>
-                            <li>4등급</li>
-                            <li>5등급</li>
-                        </ul>
+            <!-- 세 개의 창구 -->
+            <ul class="panels">
+
+                <!-- 1. 메시지 카드 사이트 -->
+                <li class="panel-item">
+                    <a href="message/index.html" class="panel panel-message">
+                        <span class="panel-bg"></span>
+                        <span class="panel-body">
+                            <span class="panel-label">카드 메시지</span>
+                            <h2 class="panel-title">마음편지</h2>
+                            <p class="panel-desc">카드를 골라 마음을 적고, 링크로 전해요</p>
+                            <span class="panel-cta">들어가기</span>
+                        </span>
+                    </a>
+                </li>
+
+                <!-- 2. 동화 읽어주기 사이트 (제작 중 : 완성되면 div를 a로 바꾸고 href="story/index.html") -->
+                <li class="panel-item">
+                    <div class="panel panel-story is-soon">
+                        <span class="panel-bg"></span>
+                        <span class="panel-body">
+                            <span class="panel-label">동화</span>
+                            <h2 class="panel-title">동화 읽어주기</h2>
+                            <p class="panel-desc">잠들기 전, 한 장씩 넘기며 듣는 이야기</p>
+                            <span class="panel-badge">준비 중</span>
+                        </span>
                     </div>
-                    <div>
-                        <p>가격</p>
-                        <ul>
-                            <li>200,000 이상</li>
-                            <li>150,000 ~ 200,000</li>
-                            <li>100,000 ~ 150,000</li>
-                            <li>50,000 ~ 100,000</li>
-                            <li>0 ~ 50,000</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p>하우징</p>
-                        <ul>
-                            <li>대칭</li>
-                            <li>비대칭</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p>센서</p>
-                        <ul>
-                            <li>플래그십</li>
-                            <li>하이엔드</li>
-                            <li>미들</li>
-                            <li>보급형</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p>무게</p>
-                        <ul>
-                            <li>50g 미만</li>
-                            <li>50g ~ 59g</li>
-                            <li>60g ~ 69g</li>
-                            <li>70g ~ 79g</li>
-                            <li>80g ~ 89g</li>
-                            <li>90g ~ 99g</li>
-                            <li>100g 이상</li>
-                        </ul>
-                    </div>
-                </div> <!-- sidebar -->
-    
-                <div class="contents_body">
-                    <div class="main_contents">
-                        <table class="product_table">
-                            <thead>
-                                <tr>
-                                    <th class="name">상품명</th>
-                                    <th class="grade">등급</th>
-                                    <th class="price">가격</th>
-                                    <th class="housing">하우징</th>
-                                    <th class="sensor">센서</th>
-                                    <th class="weight">무게</th>
-                                    <th class="senser_speed">센서 응답속도</th>
-                                    <th class="click_speed">클릭 응답속도</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td><a href="detail1.html">로지텍 G PRO X SUPERLIGHT 2</a></td><td>1등급</td><td>199,000원</td><td>대칭</td><td>HERO 2</td><td>60g</td><td>0.92ms</td><td>1.05ms</td></tr>
-                                <tr><td>레이저 바이퍼 V3 프로</td><td>1등급</td><td>239,000원</td><td>대칭</td><td>Focus Pro 35K Gen-2</td><td>54g</td><td>0.88ms</td><td>0.97ms</td></tr>
-                                <tr><td>레이저 데스애더 V3 프로</td><td>1등급</td><td>219,000원</td><td>비대칭</td><td>Focus Pro 30K</td><td>63g</td><td>0.95ms</td><td>1.02ms</td></tr>
-                                <tr><td>레이저 바이퍼 V2 프로</td><td>2등급</td><td>159,000원</td><td>대칭</td><td>Focus Pro 30K</td><td>58g</td><td>1.10ms</td><td>1.21ms</td></tr>
-                                <tr><td>레이저 바실리스크 V3 프로</td><td>3등급</td><td>229,000원</td><td>비대칭</td><td>Focus Pro 30K</td><td>112g</td><td>1.34ms</td><td>1.48ms</td></tr>
-                                <tr><td>로지텍 G PRO Wireless</td><td>3등급</td><td>129,000원</td><td>대칭</td><td>HERO 25K</td><td>80g</td><td>1.18ms</td><td>1.36ms</td></tr>
-                                <tr><td>로지텍 G502 X PLUS</td><td>3등급</td><td>189,000원</td><td>비대칭</td><td>HERO 25K</td><td>106g</td><td>1.42ms</td><td>1.63ms</td></tr>
-                                <tr><td>로지텍 G703 HERO</td><td>5등급</td><td>99,000원</td><td>비대칭</td><td>HERO 25K</td><td>95g</td><td>1.71ms</td><td>2.34ms</td></tr>
-                                <tr><td>로지텍 G305</td><td>5등급</td><td>45,000원</td><td>대칭</td><td>HERO</td><td>99g</td><td>1.85ms</td><td>2.56ms</td></tr>
-                                <tr><td>조위 EC2-CW</td><td>4등급</td><td>189,000원</td><td>비대칭</td><td>PMW3370</td><td>77g</td><td>1.52ms</td><td>1.87ms</td></tr>
-                                <tr><td>조위 EC2-C</td><td>4등급</td><td>89,000원</td><td>비대칭</td><td>PMW3360</td><td>73g</td><td>1.47ms</td><td>1.79ms</td></tr>
-                                <tr><td>펄사 X2V2</td><td>2등급</td><td>139,000원</td><td>대칭</td><td>PAW3395</td><td>52g</td><td>1.03ms</td><td>1.15ms</td></tr>
-                                <tr><td>람주 마야</td><td>2등급</td><td>129,000원</td><td>대칭</td><td>PAW3395</td><td>45g</td><td>1.07ms</td><td>1.19ms</td></tr>
-                                <tr><td>닌주소 소라 V2</td><td>2등급</td><td>149,000원</td><td>대칭</td><td>PAW3395</td><td>39g</td><td>1.12ms</td><td>1.24ms</td></tr>
-                                <tr><td>엔드게임기어 OP1 8k</td><td>1등급</td><td>99,000원</td><td>대칭</td><td>PAW3395</td><td>50g</td><td>0.90ms</td><td>0.99ms</td></tr>
-                                <tr><td>VXE R1 Pro</td><td>3등급</td><td>39,000원</td><td>대칭</td><td>PAW3395</td><td>49g</td><td>1.29ms</td><td>1.52ms</td></tr>
-                                <tr><td>글로리어스 Model O 2 Wireless</td><td>3등급</td><td>119,000원</td><td>대칭</td><td>BAMF 2.0</td><td>68g</td><td>1.38ms</td><td>1.66ms</td></tr>
-                                <tr><td>스틸시리즈 에어록스 3 와이어리스</td><td>5등급</td><td>119,000원</td><td>대칭</td><td>TrueMove Air</td><td>68g</td><td>1.94ms</td><td>2.41ms</td></tr>
-                                <tr><td>커세어 M75 AIR</td><td>3등급</td><td>139,000원</td><td>대칭</td><td>Marksman 26K</td><td>60g</td><td>1.31ms</td><td>1.58ms</td></tr>
-                                <tr><td>하이퍼X 펄스파이어 헤이스트 2 와이어리스</td><td>4등급</td><td>99,000원</td><td>대칭</td><td>26K 광센서</td><td>61g</td><td>1.40ms</td><td>1.72ms</td></tr>
-                            </tbody>
-                        </table>
-                    </div> <!-- main_contents -->
-                </div> <!-- contents_body -->
+                </li>
 
-            </div> <!-- contents_box -->
-        </div> <!-- content -->
+                <!-- 3. 미정 -->
+                <li class="panel-item">
+                    <div class="panel panel-next is-soon">
+                        <span class="panel-mark" aria-hidden="true">?</span>
+                        <span class="panel-body">
+                            <span class="panel-label">새 창구</span>
+                            <h2 class="panel-title">다음 이야기</h2>
+                            <p class="panel-desc">어떤 이야기가 들어올지 아직 비밀이에요</p>
+                            <span class="panel-badge">준비 중</span>
+                        </span>
+                    </div>
+                </li>
 
-        <div class="footer">
+            </ul>
+        </main>
 
-        </div> <!-- footer -->
+        <footer class="footer">
+            <p>&copy; 2026 이야기 우체국</p>
+        </footer>
 
-    </div> <!-- container -->
+    </div>
 </body>
 </html>

@@ -1,0 +1,273 @@
+/* =========================================
+   index-style.css (전체 홈)
+   세 개의 창구(패널)로 각 사이트에 들어가는 첫 화면
+   ========================================= */
+
+/* ---------- 1. 전체 배치 ---------- */
+.hub-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 16px 40px 8px;
+}
+
+/* ---------- 2. 제목 ---------- */
+.hub-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 24px 0 36px;
+}
+
+.hub-title {
+    font-family: var(--font-title);
+    font-size: clamp(32px, 4.6vw, 60px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.hub-desc {
+    max-width: 340px;
+    padding-bottom: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+}
+
+/* ---------- 3. 패널 목록 ---------- */
+.panels {
+    flex: 1;
+    display: flex;
+    gap: 16px;
+    min-height: 440px;
+}
+
+.panel-item {
+    flex: 1;
+    display: flex;
+    transition: flex-grow 0.5s ease;
+    /* 처음 열릴 때 한 번 차례로 올라옴 */
+    opacity: 0;
+    animation: rise 0.8s ease-out forwards;
+}
+
+.panel-item:nth-child(2) {
+    animation-delay: 0.12s;
+}
+
+.panel-item:nth-child(3) {
+    animation-delay: 0.24s;
+}
+
+/* 마우스를 올린 패널이 넓어짐 */
+.panel-item:hover,
+.panel-item:focus-within {
+    flex-grow: 1.7;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- 4. 패널 하나 ---------- */
+.panel {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--color-ink-soft);
+}
+
+/* 배경 그림 */
+.panel-bg {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    transition: transform 0.6s ease;
+}
+
+.panel-message .panel-bg {
+    background-image: url("../images/panel-message.png");
+}
+
+.panel-story .panel-bg {
+    background-image: url("../images/panel-story.svg");
+}
+
+.panel-item:hover .panel-bg {
+    transform: scale(1.05);
+}
+
+/* 글자가 잘 보이게 아래쪽을 어둡게 */
+.panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 13, 35, 0) 35%, rgba(10, 13, 35, 0.85) 100%);
+}
+
+/* ---------- 5. 패널 글자 ---------- */
+.panel-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px;
+}
+
+.panel-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.panel-title {
+    margin-top: 4px;
+    font-family: var(--font-title);
+    font-size: clamp(26px, 2.6vw, 36px);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.panel-desc {
+    margin-top: 8px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* 들어가기 버튼 모양 */
+.panel-cta {
+    margin-top: 20px;
+    padding: 10px 24px;
+    border-radius: var(--radius);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-size: 15px;
+    font-weight: 700;
+    transition: background-color 0.2s;
+}
+
+.panel:hover .panel-cta {
+    background-color: var(--color-white);
+}
+
+/* 준비 중 표시 */
+.panel-badge {
+    margin-top: 20px;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ---------- 6. 준비 중 패널 ---------- */
+.is-soon {
+    cursor: default;
+}
+
+/* 아직 그림이 없는 3번째 창구 */
+.panel-next {
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.panel-next::after {
+    display: none;
+}
+
+.panel-mark {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-title);
+    font-size: clamp(140px, 14vw, 220px);
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.07);
+    transition: color 0.4s;
+}
+
+.panel-item:hover .panel-mark {
+    color: rgba(255, 255, 255, 0.14);
+}
+
+/* ---------- 7. 움직임 줄이기 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .panel-item {
+        opacity: 1;
+        animation: none;
+        transition: none;
+    }
+
+    .panel-bg {
+        transition: none;
+    }
+}
+
+/* ---------- 8. 태블릿 · 모바일 ---------- */
+@media (max-width: 900px) {
+    .hub-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hub-desc {
+        max-width: none;
+        text-align: left;
+    }
+
+    /* 세로로 쌓기 : 넓어지는 효과 없음 */
+    .panels {
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .panel-item,
+    .panel-item:hover,
+    .panel-item:focus-within {
+        flex: none;
+    }
+
+    .panel {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hub-main {
+        padding: 8px 20px 8px;
+    }
+
+    .hub-head {
+        margin: 16px 0 24px;
+    }
+
+    .panel {
+        min-height: 260px;
+    }
+
+    .panel-body {
+        padding: 22px;
+    }
+
+    /* 동화 그림의 책이 글자에 가리지 않게 위쪽을 보여줌 */
+    .panel-story .panel-bg {
+        background-position: center 10%;
+    }
+}

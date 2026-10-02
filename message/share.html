@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카드 전하기 - 마음편지</title>
+
+    <!-- 글꼴 (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/common-style.css">
+    <link rel="stylesheet" href="css/share-style.css">
+</head>
+<body>
+    <div class="container share">
+
+        <!-- 헤더 -->
+        <header class="header">
+            <a href="index.html" class="logo">마음편지</a>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="card-select.html">카드 둘러보기</a></li>
+                    <li><a href="gallery.html">예시 모음</a></li>
+                    <li><a href="guide.html">사용 방법</a></li>
+                    <li><a href="faq.html">자주 묻는 질문</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="share-main">
+
+            <!-- 진행 단계 -->
+            <ol class="steps">
+                <li class="step is-done"><span class="step-num">1</span>카드 고르기</li>
+                <li class="step is-done"><span class="step-num">2</span>메시지 쓰기</li>
+                <li class="step is-current"><span class="step-num">3</span>전하기</li>
+            </ol>
+
+            <!-- 봉투에 카드가 들어가는 장면 (CSS 애니메이션) -->
+            <div class="envelope" aria-hidden="true">
+                <div class="env-back"></div>
+                <div class="letter">
+                    <span class="letter-line"></span>
+                    <span class="letter-line"></span>
+                    <span class="letter-line letter-line-short"></span>
+                </div>
+                <div class="env-front"></div>
+                <div class="env-flap"></div>
+                <div class="env-seal"></div>
+            </div>
+
+            <!-- 완성 문구 -->
+            <section class="share-head">
+                <h1 class="share-title">카드가 봉투에 담겼어요</h1>
+                <p class="share-desc">이제 받는 사람에게 링크를 전하기만 하면 돼요</p>
+            </section>
+
+            <!-- 공유 영역 -->
+            <section class="share-box">
+
+                <label for="card-link" class="share-label">카드 링크</label>
+                <input type="text" id="card-link" class="share-link" value="https://maumpyeonji.example/c/7F3K2" readonly>
+                <p class="share-hint">링크를 드래그하거나 길게 눌러서 복사하세요</p>
+                <a href="receive.html" class="share-preview">받는 사람에게는 이렇게 보여요</a>
+
+                <div class="share-actions">
+                    <a href="mailto:?subject=%EB%A7%88%EC%9D%8C%ED%8E%B8%EC%A7%80%EA%B0%80%20%EB%8F%84%EC%B0%A9%ED%96%88%EC%96%B4%EC%9A%94&amp;body=%EC%B9%B4%EB%93%9C%EB%A5%BC%20%EC%97%B4%EC%96%B4%20%EB%B3%B4%EC%84%B8%EC%9A%94%3A%20https%3A//maumpyeonji.example/c/7F3K2" class="btn btn-primary">이메일로 보내기</a>
+                    <a href="sms:?&amp;body=%EC%B9%B4%EB%93%9C%EB%A5%BC%20%EC%97%B4%EC%96%B4%20%EB%B3%B4%EC%84%B8%EC%9A%94%3A%20https%3A//maumpyeonji.example/c/7F3K2" class="btn btn-outline">문자로 보내기</a>
+                </div>
+
+            </section>
+
+            <!-- 다음 행동 -->
+            <div class="share-more">
+                <a href="card-select.html" class="btn btn-outline">새 카드 만들기</a>
+                <a href="index.html" class="back-link">처음으로 돌아가기</a>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <a href="../index.html" class="footer-home">이야기 우체국 홈으로</a>
+            <p>&copy; 2026 마음편지</p>
+        </footer>
+
+    </div>
+</body>
+</html>

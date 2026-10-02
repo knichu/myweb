@@ -1,0 +1,134 @@
+/* =========================================
+   gallery-style.css
+   예시 모음 페이지 전용 스타일
+   CSS columns 로 높이가 다른 카드를 벽돌처럼 쌓기
+   ========================================= */
+
+/* ---------- 1. 벽돌 쌓기 목록 ---------- */
+.gallery-grid {
+    columns: 3 280px;          /* 최대 3줄, 한 줄 최소 280px */
+    column-gap: 24px;
+}
+
+.gallery-item {
+    break-inside: avoid;       /* 카드 하나가 두 줄로 잘리지 않게 */
+    margin-bottom: 24px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(8, 10, 30, 0.35);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-6px) rotate(-1deg);
+}
+
+/* ---------- 2. 카드 겉면 ---------- */
+.gallery-cover {
+    position: relative;
+    aspect-ratio: 16 / 10;
+}
+
+.gallery-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    border-radius: var(--radius);
+    background-color: rgba(20, 27, 69, 0.75);
+    font-size: 13px;
+    color: var(--color-white);
+}
+
+/* ---------- 3. 편지지 ---------- */
+.gallery-paper {
+    --paper-color: var(--color-paper);
+    --paper-font: var(--font-hand);
+    --paper-size: 22px;
+    --paper-line: 32px;
+
+    padding: 22px 24px 20px;
+    background-color: var(--paper-color);
+    color: var(--color-text);
+    font-family: var(--paper-font);
+    font-size: var(--paper-size);
+    line-height: var(--paper-line);
+}
+
+.gallery-to,
+.gallery-from {
+    font-weight: 700;
+}
+
+.gallery-message {
+    margin: 10px 0;
+    background-image: repeating-linear-gradient(
+        transparent 0,
+        transparent calc(var(--paper-line) - 1px),
+        rgba(31, 33, 64, 0.14) calc(var(--paper-line) - 1px),
+        rgba(31, 33, 64, 0.14) var(--paper-line)
+    );
+}
+
+.gallery-from {
+    text-align: right;
+}
+
+/* 편지지 색 (메시지 쓰기 페이지와 같은 세 가지) */
+.paper-pink .gallery-paper {
+    --paper-color: #fbe4ea;
+}
+
+.paper-sky .gallery-paper {
+    --paper-color: #e3eefb;
+}
+
+/* 글씨체 */
+.font-batang .gallery-paper {
+    --paper-font: var(--font-title);
+    --paper-size: 16px;
+    --paper-line: 30px;
+}
+
+.font-dodum .gallery-paper {
+    --paper-font: var(--font-body);
+    --paper-size: 16px;
+    --paper-line: 30px;
+}
+
+/* ---------- 4. 마무리 ---------- */
+.gallery-end {
+    margin-top: 64px;
+    text-align: center;
+}
+
+.gallery-end-text {
+    margin-bottom: 20px;
+    font-family: var(--font-title);
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 700;
+}
+
+/* ---------- 5. 움직임 줄이기 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .gallery-item {
+        transition: none;
+    }
+}
+
+/* ---------- 6. 모바일 ---------- */
+@media (max-width: 768px) {
+    .gallery-grid {
+        column-gap: 16px;
+    }
+
+    .gallery-item {
+        margin-bottom: 16px;
+    }
+}

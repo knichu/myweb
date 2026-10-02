@@ -1,0 +1,227 @@
+/* =========================================
+   share-style.css
+   전하기(마지막) 페이지 전용 스타일 (JS 없이 CSS만 사용)
+   ========================================= */
+
+/* ---------- 1. 페이지 배경 ---------- */
+/* 인트로와 같은 밤하늘 그림으로 마무리 : 내 편지도 저 하늘로 날아가는 느낌 */
+.share {
+    background:
+        linear-gradient(rgba(20, 27, 69, 0.6), rgba(20, 27, 69, 0.6)),
+        url("../images/intro-bg.png") center / cover no-repeat;
+    background-color: var(--color-night);
+    color: var(--color-white);
+}
+
+.share-main {
+    flex: 1;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 24px 24px 64px;
+    text-align: center;
+}
+
+/* ---------- 2. 봉투 움직임 시작 상태 ---------- */
+/* 봉투 모양은 common-style.css. 여기서는 "열린 상태"에서 출발시키기만 함 */
+.share .envelope {
+    margin: 150px auto 0;     /* 위에서 카드가 내려올 공간 */
+}
+
+.share .letter {
+    transform: translateY(-120%);
+    animation: letter-in 1s ease-in-out 0.3s forwards;
+}
+
+.share .env-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+    animation: flap-close 0.6s ease-in-out 1.4s forwards;
+}
+
+.share .env-seal {
+    transform: scale(0);
+    animation: seal-pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) 2s forwards;
+}
+
+/* ---------- 3. 애니메이션 순서 ---------- */
+/* 0.3s 카드가 내려옴 → 1.4s 뚜껑이 닫힘 → 2s 봉인이 찍힘 → 글자 등장 */
+@keyframes letter-in {
+    from {
+        transform: translateY(-120%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes flap-close {
+    0% {
+        transform: rotateX(180deg);
+        z-index: 1;
+    }
+    50% {
+        z-index: 4;
+    }
+    100% {
+        transform: rotateX(0);
+        z-index: 4;
+    }
+}
+
+@keyframes seal-pop {
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- 4. 완성 문구 ---------- */
+.share-head {
+    margin-top: 44px;
+    opacity: 0;
+    animation: fade-up 0.7s ease-out 2.2s forwards;
+}
+
+.share-title {
+    font-family: var(--font-title);
+    font-size: clamp(26px, 3.6vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.share-desc {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ---------- 5. 공유 영역 ---------- */
+.share-box {
+    margin-top: 36px;
+    padding: 28px 24px;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: left;
+    opacity: 0;
+    animation: fade-up 0.7s ease-out 2.5s forwards;
+}
+
+.share-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.share-link {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    background-color: rgba(20, 27, 69, 0.6);
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-white);
+}
+
+.share-link:focus {
+    outline: none;
+    border-color: var(--color-rose);
+}
+
+/* 링크를 드래그했을 때 선택 색 */
+.share-link::selection {
+    background-color: var(--color-rose);
+}
+
+.share-hint {
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.share-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.share-actions .btn {
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* ---------- 6. 다음 행동 ---------- */
+.share-more {
+    margin-top: 40px;
+    opacity: 0;
+    animation: fade-up 0.7s ease-out 2.8s forwards;
+}
+
+.share-more .back-link {
+    margin-top: 20px;
+}
+
+/* ---------- 7. 움직임 줄이기 설정한 사용자 ---------- */
+/* 애니메이션 없이 봉투가 닫힌 마지막 모습만 보여줌 */
+@media (prefers-reduced-motion: reduce) {
+    .share .letter,
+    .share .env-flap,
+    .share .env-seal,
+    .share-head,
+    .share-box,
+    .share-more {
+        animation: none;
+        opacity: 1;
+    }
+
+    .share .letter,
+    .share .env-flap,
+    .share .env-seal {
+        transform: none;
+    }
+
+    .share .env-flap {
+        z-index: 4;
+    }
+}
+
+/* ---------- 8. 모바일 ---------- */
+@media (max-width: 768px) {
+    .share-main {
+        padding: 16px 20px 48px;
+    }
+
+    .share .envelope {
+        margin-top: 120px;
+    }
+
+    .share-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- 9. 받는 사람 화면 미리보기 링크 ---------- */
+.share-preview {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--color-paper);
+    border-bottom: 1px solid rgba(255, 246, 234, 0.4);
+}
+
+.share-preview:hover {
+    border-bottom-color: var(--color-paper);
+}

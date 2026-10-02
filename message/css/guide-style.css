@@ -1,0 +1,223 @@
+/* =========================================
+   guide-style.css
+   사용 방법 페이지 전용 스타일
+   ========================================= */
+
+/* ---------- 1. 단계 목록 : 그림과 글이 번갈아 나오는 지그재그 ---------- */
+.guide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.guide-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 56px;
+}
+
+/* 짝수 번째는 그림을 오른쪽으로 */
+.guide-item:nth-child(even) .guide-visual {
+    order: 2;
+}
+
+/* ---------- 2. 그림 상자 ---------- */
+.guide-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+}
+
+/* 1단계 : 부채꼴로 펼친 카드 세 장 */
+.fan {
+    position: relative;
+    width: 60%;
+    aspect-ratio: 1 / 1;
+}
+
+.fan-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 44%;
+    margin: -29% 0 0 -22%;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(8, 10, 30, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.fan-left {
+    transform: translateX(-62%) rotate(-12deg);
+}
+
+.fan-right {
+    transform: translateX(62%) rotate(12deg);
+}
+
+.fan-center {
+    z-index: 1;
+}
+
+.guide-item:hover .fan-left {
+    transform: translateX(-74%) rotate(-16deg);
+}
+
+.guide-item:hover .fan-right {
+    transform: translateX(74%) rotate(16deg);
+}
+
+/* 2단계 : 작은 펼친 카드 */
+.mini-spread {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 78%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(8, 10, 30, 0.45);
+}
+
+.mini-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mini-paper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 16px;
+    background-color: var(--color-paper);
+    color: var(--color-text);
+    font-family: var(--font-hand);
+    font-size: 20px;
+    line-height: 26px;
+}
+
+.mini-message {
+    flex: 1;
+    background-image: repeating-linear-gradient(
+        transparent 0,
+        transparent 25px,
+        rgba(31, 33, 64, 0.14) 25px,
+        rgba(31, 33, 64, 0.14) 26px
+    );
+}
+
+.mini-from {
+    text-align: right;
+}
+
+/* 3단계 : 닫힌 봉투 (모양은 common-style.css) */
+.guide-envelope {
+    --env-w: 62%;
+    transition: transform 0.3s ease;
+}
+
+.guide-item:hover .guide-envelope {
+    transform: translateY(-6px) rotate(-3deg);
+}
+
+/* ---------- 3. 설명 글 ---------- */
+.guide-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-paper);
+    color: var(--color-night);
+    font-family: var(--font-title);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.guide-title {
+    margin-top: 18px;
+    font-family: var(--font-title);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.guide-desc {
+    margin-top: 12px;
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.guide-tip {
+    margin-top: 18px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--color-rose);
+    background-color: rgba(255, 255, 255, 0.06);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.guide-tip a,
+.guide-end-sub a {
+    color: var(--color-paper);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ---------- 4. 마무리 ---------- */
+.guide-end {
+    margin-top: 96px;
+    text-align: center;
+}
+
+.guide-end-title {
+    margin-bottom: 24px;
+    font-family: var(--font-title);
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 700;
+}
+
+.guide-end-sub {
+    margin-top: 20px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- 5. 움직임 줄이기 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .fan-card,
+    .guide-envelope {
+        transition: none;
+    }
+}
+
+/* ---------- 6. 모바일 ---------- */
+@media (max-width: 768px) {
+    .guide-list {
+        gap: 56px;
+    }
+
+    /* 한 줄로 쌓고, 그림이 항상 위 */
+    .guide-item {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .guide-item:nth-child(even) .guide-visual {
+        order: 0;
+    }
+
+    .guide-title {
+        font-size: 24px;
+    }
+
+    .guide-end {
+        margin-top: 72px;
+    }
+}

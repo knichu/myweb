@@ -1,0 +1,158 @@
+/* =========================================
+   faq-style.css
+   자주 묻는 질문 페이지 전용 스타일
+   <details> + <summary> 로 JS 없이 펼치고 접기
+   ========================================= */
+
+/* ---------- 1. 목록 ---------- */
+.faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+/* 묶음 제목 (카드 만들기 / 보내기와 받기) */
+.faq-group {
+    margin: 40px 0 14px;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.faq-group:first-child {
+    margin-top: 0;
+}
+
+/* ---------- 2. 질문 하나 ---------- */
+.faq-item {
+    margin-bottom: 10px;
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.07);
+    transition: background-color 0.2s;
+}
+
+.faq-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 열린 질문은 편지지 색으로 */
+.faq-item[open] {
+    background-color: var(--color-paper);
+    color: var(--color-text);
+}
+
+/* ---------- 3. 질문 줄 (summary) ---------- */
+.faq-q {
+    position: relative;
+    padding: 20px 60px 20px 24px;
+    font-family: var(--font-title);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;          /* 기본 ▶ 표시 없애기 */
+}
+
+/* 사파리용 기본 ▶ 표시 없애기 */
+.faq-q::-webkit-details-marker {
+    display: none;
+}
+
+/* 오른쪽 + 아이콘 (가로선 + 세로선) */
+.faq-q::before,
+.faq-q::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 26px;
+    width: 14px;
+    height: 2px;
+    margin-top: -1px;
+    border-radius: 1px;
+    background-color: currentColor;
+    transition: transform 0.25s ease;
+}
+
+.faq-q::after {
+    transform: rotate(90deg);
+}
+
+/* 열리면 세로선이 누워서 - 모양 */
+.faq-item[open] .faq-q::after {
+    transform: rotate(0);
+}
+
+.faq-q:focus-visible {
+    outline: 2px solid var(--color-rose);
+    outline-offset: 2px;
+    border-radius: 14px;
+}
+
+/* ---------- 4. 답 ---------- */
+.faq-a {
+    padding: 0 24px 22px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(31, 33, 64, 0.8);
+}
+
+/* 열릴 때 살짝 내려오며 나타남 */
+.faq-item[open] .faq-a {
+    animation: answer-in 0.3s ease-out;
+}
+
+@keyframes answer-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.faq-a a {
+    color: var(--color-violet);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ---------- 5. 문의 ---------- */
+.faq-contact {
+    margin-top: 64px;
+    text-align: center;
+}
+
+.faq-contact-text {
+    margin-bottom: 16px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ---------- 6. 움직임 줄이기 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .faq-item[open] .faq-a {
+        animation: none;
+    }
+
+    .faq-q::before,
+    .faq-q::after {
+        transition: none;
+    }
+}
+
+/* ---------- 7. 모바일 ---------- */
+@media (max-width: 768px) {
+    .faq-q {
+        padding: 18px 52px 18px 18px;
+        font-size: 16px;
+    }
+
+    .faq-q::before,
+    .faq-q::after {
+        right: 20px;
+    }
+
+    .faq-a {
+        padding: 0 18px 20px;
+        font-size: 15px;
+    }
+}

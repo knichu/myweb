@@ -1,0 +1,95 @@
+/* =========================================
+   404-style.css
+   없는 주소로 들어왔을 때 보여주는 페이지 스타일
+   ========================================= */
+
+/* ---------- 1. 페이지 배경 ---------- */
+.not-found {
+    background:
+        linear-gradient(rgba(20, 27, 69, 0.65), rgba(20, 27, 69, 0.65)),
+        url("../images/intro-bg.png") center / cover no-repeat;
+    background-color: var(--color-night);
+    color: var(--color-white);
+}
+
+.not-found-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* ---------- 2. 길 잃은 봉투 ---------- */
+.lost {
+    position: relative;
+    display: grid;
+    place-items: center;
+    margin-bottom: 40px;
+}
+
+/* 봉투 뒤에 크게 깔리는 404 숫자 */
+.lost-code {
+    grid-area: 1 / 1;
+    font-family: var(--font-title);
+    font-size: clamp(150px, 26vw, 280px);
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.08);
+    letter-spacing: -0.04em;
+}
+
+.lost-envelope {
+    --env-w: min(210px, 52vw);
+
+    grid-area: 1 / 1;
+    animation: drift 4s ease-in-out infinite;
+}
+
+/* 봉인 자리에 물음표 */
+.lost-seal {
+    position: absolute;
+    top: 74%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    background-color: var(--color-rose);
+    font-family: var(--font-title);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-paper);
+    z-index: 5;
+}
+
+/* 바람에 흔들리듯 둥둥 */
+@keyframes drift {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-6deg);
+    }
+    50% {
+        transform: translateY(-14px) rotate(4deg);
+    }
+}
+
+/* ---------- 3. 버튼 ---------- */
+.not-found-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 36px;
+}
+
+/* ---------- 4. 움직임 줄이기 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .lost-envelope {
+        animation: none;
+        transform: rotate(-6deg);
+    }
+}

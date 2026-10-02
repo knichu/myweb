@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메시지 쓰기 - 마음편지</title>
+
+    <!-- 글꼴 (Google Fonts) : 손글씨용 Nanum Pen Script 추가 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/common-style.css">
+    <link rel="stylesheet" href="css/write-style.css">
+</head>
+<body>
+    <div class="container bg-night write">
+
+        <!--
+            카드 표시용 목표 지점(:target).
+            카드 선택 페이지에서 write.html#card-cake 처럼 들어오면
+            id가 같은 span이 :target 이 되고, CSS가 그 카드 그림을 보여줌
+        -->
+        <span id="card-cake" class="card-anchor"></span>
+        <span id="card-balloon" class="card-anchor"></span>
+        <span id="card-flower" class="card-anchor"></span>
+        <span id="card-letter" class="card-anchor"></span>
+        <span id="card-confetti" class="card-anchor"></span>
+        <span id="card-trophy" class="card-anchor"></span>
+        <span id="card-sun" class="card-anchor"></span>
+        <span id="card-mountain" class="card-anchor"></span>
+
+        <!-- 헤더 -->
+        <header class="header">
+            <a href="index.html" class="logo">마음편지</a>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="card-select.html">카드 둘러보기</a></li>
+                    <li><a href="gallery.html">예시 모음</a></li>
+                    <li><a href="guide.html">사용 방법</a></li>
+                    <li><a href="faq.html">자주 묻는 질문</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="write-main">
+
+            <!-- 진행 단계 -->
+            <ol class="steps">
+                <li class="step is-done"><span class="step-num">1</span>카드 고르기</li>
+                <li class="step is-current"><span class="step-num">2</span>메시지 쓰기</li>
+                <li class="step"><span class="step-num">3</span>전하기</li>
+            </ol>
+
+            <!-- 제목 -->
+            <section class="write-head">
+                <h1 class="write-title">카드 안쪽에 마음을 적어 주세요</h1>
+                <p class="write-desc">오른쪽 편지지를 눌러 바로 쓰면 돼요</p>
+            </section>
+
+            <form action="share.html" method="get" class="write-form">
+
+                <!-- 편지지 색 선택 (화면에서는 숨김) -->
+                <input type="radio" name="paper" id="paper-cream" value="cream" class="option-radio" checked>
+                <input type="radio" name="paper" id="paper-pink" value="pink" class="option-radio">
+                <input type="radio" name="paper" id="paper-sky" value="sky" class="option-radio">
+
+                <!-- 글씨체 선택 (화면에서는 숨김) -->
+                <input type="radio" name="font" id="font-hand" value="hand" class="option-radio" checked>
+                <input type="radio" name="font" id="font-batang" value="batang" class="option-radio">
+                <input type="radio" name="font" id="font-dodum" value="dodum" class="option-radio">
+
+                <div class="write-layout">
+
+                    <!-- 펼친 카드 : 왼쪽 겉면 + 오른쪽 안쪽 편지지 -->
+                    <div class="card-spread">
+
+                        <div class="card-cover">
+                            <img src="images/cards/card-birthday-cake.svg" alt="촛불 케이크 카드" class="cover-img cover-cake">
+                            <img src="images/cards/card-birthday-balloon.svg" alt="풍선 다발 카드" class="cover-img cover-balloon">
+                            <img src="images/cards/card-thanks-flower.svg" alt="꽃다발 카드" class="cover-img cover-flower">
+                            <img src="images/cards/card-thanks-letter.svg" alt="하트 편지 카드" class="cover-img cover-letter">
+                            <img src="images/cards/card-congrats-confetti.svg" alt="별빛 꽃가루 카드" class="cover-img cover-confetti">
+                            <img src="images/cards/card-congrats-trophy.svg" alt="금빛 트로피 카드" class="cover-img cover-trophy">
+                            <img src="images/cards/card-cheer-sun.svg" alt="떠오르는 해 카드" class="cover-img cover-sun">
+                            <img src="images/cards/card-cheer-mountain.svg" alt="산 정상 깃발 카드" class="cover-img cover-mountain">
+                        </div>
+
+                        <div class="card-paper">
+                            <div class="paper-row">
+                                <label for="to" class="paper-label">To.</label>
+                                <input type="text" id="to" name="to" class="paper-input" placeholder="받는 사람" maxlength="20" required>
+                            </div>
+
+                            <label for="message" class="sr-only">메시지</label>
+                            <textarea id="message" name="message" class="paper-message" placeholder="생일 축하해! 올해도 네가 웃는 날이 많았으면 좋겠어." maxlength="300" required></textarea>
+
+                            <div class="paper-row paper-from">
+                                <label for="from" class="paper-label">From.</label>
+                                <input type="text" id="from" name="from" class="paper-input" placeholder="보내는 사람" maxlength="20" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 꾸미기 옵션 -->
+                    <aside class="write-options">
+
+                        <div class="option-group">
+                            <p class="option-title">편지지 색</p>
+                            <div class="option-list">
+                                <label for="paper-cream" class="swatch swatch-cream"><span class="sr-only">크림</span></label>
+                                <label for="paper-pink" class="swatch swatch-pink"><span class="sr-only">분홍</span></label>
+                                <label for="paper-sky" class="swatch swatch-sky"><span class="sr-only">하늘</span></label>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <p class="option-title">글씨체</p>
+                            <div class="option-list">
+                                <label for="font-hand" class="font-chip font-chip-hand">손글씨</label>
+                                <label for="font-batang" class="font-chip font-chip-batang">바탕</label>
+                                <label for="font-dodum" class="font-chip font-chip-dodum">돋움</label>
+                            </div>
+                        </div>
+
+                        <p class="option-note">메시지는 최대 300자까지 쓸 수 있어요</p>
+
+                        <div class="option-actions">
+                            <button type="submit" class="btn btn-primary">카드 완성하기</button>
+                            <a href="card-select.html" class="back-link">다른 카드 고르기</a>
+                        </div>
+
+                    </aside>
+                </div>
+            </form>
+        </main>
+
+        <footer class="footer">
+            <a href="../index.html" class="footer-home">이야기 우체국 홈으로</a>
+            <p>&copy; 2026 마음편지</p>
+        </footer>
+
+    </div>
+</body>
+</html>

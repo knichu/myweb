@@ -1,0 +1,426 @@
+/* =========================================
+   common-style.css
+   모든 페이지에서 같이 쓰는 기본 스타일
+   ========================================= */
+
+/* ---------- 1. 색상 · 글꼴 변수 ---------- */
+:root {
+    /* 배경 이미지에서 뽑은 색 */
+    --color-night: #141b45;     /* 밤하늘 남색 */
+    --color-violet: #3a3478;    /* 보라 */
+    --color-rose: #e07a8f;      /* 하트 장밋빛 */
+    --color-paper: #fff6ea;     /* 편지지 색 */
+    --color-white: #ffffff;
+    --color-text: #1f2140;      /* 밝은 배경 위 본문 글자 */
+
+    /* 글꼴 */
+    --font-title: "Gowun Batang", serif;      /* 제목: 손편지 느낌 */
+    --font-body: "Gowun Dodum", sans-serif;   /* 본문 */
+    --font-hand: "Nanum Pen Script", cursive; /* 손글씨 (메시지용) */
+
+    /* 공통 수치 */
+    --radius: 999px;            /* 알약 모양 버튼 */
+    --header-height: 72px;
+}
+
+/* ---------- 2. 리셋 ---------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    line-height: 1.6;
+    word-break: keep-all;      /* 한글이 단어 중간에서 줄바꿈되지 않게 */
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button {
+    font: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* ---------- 3. 페이지 감싸는 container ---------- */
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ---------- 4. 공통 헤더 ---------- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    padding: 0 40px;
+}
+
+.logo {
+    font-family: var(--font-title);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.nav-list {
+    display: flex;
+    gap: 32px;
+    font-size: 15px;
+}
+
+.nav-list a {
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.nav-list a:hover {
+    opacity: 1;
+}
+
+/* 지금 보고 있는 페이지 메뉴 */
+.nav-list a[aria-current="page"] {
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-color: var(--color-rose);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+}
+
+/* ---------- 5. 공통 버튼 ---------- */
+.btn {
+    display: inline-block;
+    padding: 16px 40px;
+    border-radius: var(--radius);
+    font-size: 17px;
+    font-weight: 700;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* 편지지 색 버튼 (메인 행동) */
+.btn-primary {
+    background-color: var(--color-paper);
+    color: var(--color-night);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-white);
+}
+
+/* 테두리만 있는 버튼 (보조 행동) */
+.btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: var(--color-white);
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* 키보드로 이동할 때 보이는 테두리 */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--color-rose);
+    outline-offset: 3px;
+}
+
+/* ---------- 6. 밤하늘 배경 (카드 선택 이후 페이지 공통) ---------- */
+.bg-night {
+    background: linear-gradient(180deg, var(--color-night) 0%, var(--color-violet) 100%);
+    color: var(--color-white);
+}
+
+/* ---------- 7. 진행 단계 표시 ---------- */
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px 6px 6px;
+    border-radius: var(--radius);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+}
+
+/* 지금 단계 */
+.step.is-current {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: var(--color-white);
+}
+
+.step.is-current .step-num {
+    background-color: var(--color-paper);
+    border-color: var(--color-paper);
+    color: var(--color-night);
+}
+
+/* 끝낸 단계 */
+.step.is-done {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.step.is-done .step-num {
+    border-color: var(--color-rose);
+    background-color: var(--color-rose);
+    color: var(--color-white);
+}
+
+/* ---------- 8. 공통 푸터 ---------- */
+.footer {
+    padding: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* 푸터의 전체 홈(이야기 우체국) 링크 */
+.footer-home {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.footer-home:hover {
+    color: var(--color-white);
+}
+
+/* ---------- 9. 텍스트 링크 (이전으로 등) ---------- */
+.back-link {
+    display: block;
+    width: fit-content;
+    margin: 56px auto 0;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.back-link:hover {
+    color: var(--color-white);
+}
+
+/* ---------- 10. 화면에서는 숨기고 화면낭독기만 읽는 글자 ---------- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* ---------- 11. 새 페이지 공통 본문 · 제목 ---------- */
+.page-main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 40px 64px;
+}
+
+.page-head {
+    margin: 48px 0 40px;
+    text-align: center;
+}
+
+.page-title {
+    font-family: var(--font-title);
+    font-size: clamp(26px, 3.6vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.page-desc {
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---------- 12. 봉투 (전하기 · 받은 카드 · 사용 방법 · 404) ---------- */
+/* 기본 모습은 "닫힌 봉투". 움직임은 각 페이지 CSS에서 */
+.envelope {
+    --env-w: min(340px, 78vw);
+
+    position: relative;
+    width: var(--env-w);
+    aspect-ratio: 34 / 23;
+    perspective: 800px;       /* 뚜껑이 입체적으로 접히게 */
+}
+
+/* 봉투 뒷면 */
+.env-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background-color: #e4d2bb;
+}
+
+/* 봉투 속 카드 */
+.letter {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: 8%;
+    height: 60%;              /* 다 들어가면 앞 주머니에 완전히 가려지는 높이 */
+    padding: 12% 12% 0;
+    border-radius: 8px;
+    background-color: #fffdf8;   /* 봉투보다 밝게 해서 구분 */
+    box-shadow: 0 -2px 6px rgba(80, 50, 20, 0.12);
+    z-index: 2;
+}
+
+.letter-line {
+    display: block;
+    height: 4px;
+    margin-bottom: 12px;
+    border-radius: 2px;
+    background-color: rgba(31, 33, 64, 0.15);
+}
+
+.letter-line-short {
+    width: 55%;
+}
+
+/* 봉투 앞쪽 주머니 (V자로 파인 모양) */
+.env-front {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background-color: #f1dfc6;
+    clip-path: polygon(0 0, 50% 68%, 100% 0, 100% 100%, 0 100%);
+    z-index: 3;
+}
+
+/* 봉투 뚜껑 */
+.env-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 74%;              /* 앞 주머니보다 살짝 길게 덮어서 틈이 안 보이게 */
+    background-color: #ecdcc5;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    z-index: 4;
+}
+
+/* 하트 봉인 */
+.env-seal {
+    position: absolute;
+    top: 74%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0 -22px;
+    border-radius: 50%;
+    background-color: var(--color-rose);
+    z-index: 5;
+}
+
+/* 봉인 위 하트 모양 */
+.env-seal::before,
+.env-seal::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 17px;
+    width: 10px;
+    height: 16px;
+    border-radius: 5px 5px 0 0;
+    background-color: var(--color-paper);
+}
+
+.env-seal::before {
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.env-seal::after {
+    margin-left: -10px;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+/* ---------- 13. 모바일 ---------- */
+@media (max-width: 768px) {
+    /* 메뉴가 4개라 좁은 화면에서는 로고 아래로 내림 */
+    .header {
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        height: auto;
+        padding: 16px 20px;
+    }
+
+    .nav-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 16px;
+        font-size: 13px;
+    }
+
+    .nav-list a[aria-current="page"] {
+        text-underline-offset: 5px;
+    }
+
+    .page-main {
+        padding: 16px 20px 48px;
+    }
+
+    .page-head {
+        margin: 32px 0 28px;
+    }
+
+    .steps {
+        gap: 4px;
+        font-size: 12px;
+    }
+}

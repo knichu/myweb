@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카드가 도착했어요 - 마음편지</title>
+
+    <!-- 글꼴 (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/common-style.css">
+    <link rel="stylesheet" href="css/receive-style.css">
+</head>
+<body>
+    <div class="container receive">
+
+        <!-- 헤더 -->
+        <header class="header">
+            <a href="index.html" class="logo">마음편지</a>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="card-select.html">카드 둘러보기</a></li>
+                    <li><a href="gallery.html">예시 모음</a></li>
+                    <li><a href="guide.html">사용 방법</a></li>
+                    <li><a href="faq.html">자주 묻는 질문</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="page-main receive-main">
+
+            <section class="page-head">
+                <p class="receive-from">서연님이 보낸 카드</p>
+                <h1 class="page-title">마음편지가 도착했어요</h1>
+            </section>
+
+            <!-- 봉투 열기 스위치 (화면에서는 숨김, 봉투가 label 역할) -->
+            <input type="checkbox" id="open-card" class="open-toggle">
+
+            <div class="receive-stage">
+
+                <!-- 봉투 : 누르면 열림 -->
+                <label for="open-card" class="envelope-btn">
+                    <span class="sr-only">봉투 열기</span>
+                    <span class="envelope" aria-hidden="true">
+                        <span class="env-back"></span>
+                        <span class="letter">
+                            <span class="letter-line"></span>
+                            <span class="letter-line"></span>
+                            <span class="letter-line letter-line-short"></span>
+                        </span>
+                        <span class="env-front"></span>
+                        <span class="env-flap"></span>
+                        <span class="env-seal"></span>
+                    </span>
+                    <span class="open-hint">봉투를 눌러 열어 보세요</span>
+                </label>
+
+                <!-- 봉투에서 나온 카드 -->
+                <article class="received-card">
+                    <div class="received-cover">
+                        <img src="images/cards/card-cheer-sun.svg" alt="떠오르는 해 카드">
+                    </div>
+                    <div class="received-paper">
+                        <p class="received-to">To. 지민</p>
+                        <p class="received-message">
+                            첫 출근 축하해! 낯선 곳이라 긴장되겠지만 너라면 금방 적응할 거야.
+                            점심은 꼭 맛있는 거 먹고, 퇴근하면 연락 줘.
+                            주말에 축하 파티하자!
+                        </p>
+                        <p class="received-from">From. 서연</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- 카드를 연 뒤에 나타나는 버튼 -->
+            <div class="receive-actions">
+                <a href="card-select.html" class="btn btn-primary">나도 카드 보내기</a>
+                <label for="open-card" class="btn btn-outline">다시 봉투에 넣기</label>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <a href="../index.html" class="footer-home">이야기 우체국 홈으로</a>
+            <p>&copy; 2026 마음편지</p>
+        </footer>
+
+    </div>
+</body>
+</html>

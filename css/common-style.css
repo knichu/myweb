@@ -1,0 +1,102 @@
+/* =========================================
+   common-style.css (전체 홈)
+   이야기 우체국 홈에서 같이 쓰는 기본 스타일
+   각 사이트(message, story ...)는 자기 폴더의 CSS를 따로 씀
+   ========================================= */
+
+/* ---------- 1. 색상 · 글꼴 변수 ---------- */
+:root {
+    --color-ink: #141b45;       /* 바탕 남색 */
+    --color-ink-soft: #232a5c;
+    --color-paper: #fff6ea;     /* 편지지 색 */
+    --color-rose: #e07a8f;      /* 강조 */
+    --color-white: #ffffff;
+
+    --font-title: "Gowun Batang", serif;
+    --font-body: "Gowun Dodum", sans-serif;
+
+    --radius: 999px;
+}
+
+/* ---------- 2. 리셋 ---------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-ink);
+    color: var(--color-white);
+    line-height: 1.6;
+    word-break: keep-all;      /* 한글이 단어 중간에서 줄바꿈되지 않게 */
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a:focus-visible {
+    outline: 2px solid var(--color-rose);
+    outline-offset: 4px;
+}
+
+/* ---------- 3. 페이지 감싸는 container ---------- */
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ---------- 4. 헤더 ---------- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    padding: 0 40px;
+}
+
+.logo {
+    font-family: var(--font-title);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* ---------- 5. 푸터 ---------- */
+.footer {
+    padding: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- 6. 모바일 ---------- */
+@media (max-width: 768px) {
+    .header {
+        height: 60px;
+        padding: 0 20px;
+    }
+}

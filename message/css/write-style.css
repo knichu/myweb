@@ -1,0 +1,371 @@
+/* =========================================
+   write-style.css
+   메시지 쓰기 페이지 전용 스타일 (JS 없이 CSS만 사용)
+   ========================================= */
+
+/* ---------- 1. 페이지 레이아웃 ---------- */
+.write-main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 40px 64px;
+}
+
+/* :target 용 span. 맨 위에 두어서 주소로 들어와도 화면이 아래로 튀지 않게 */
+.card-anchor {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* ---------- 2. 제목 ---------- */
+.write-head {
+    margin: 48px 0 36px;
+    text-align: center;
+}
+
+.write-title {
+    font-family: var(--font-title);
+    font-size: clamp(26px, 3.6vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.write-desc {
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---------- 3. 전체 배치 : 펼친 카드 + 옵션 ---------- */
+.write-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 40px;
+    align-items: start;
+}
+
+/* 숨겨 둔 옵션 라디오 */
+.option-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------- 4. 펼친 카드 ---------- */
+.card-spread {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(8, 10, 30, 0.45);
+}
+
+/* 왼쪽 : 카드 겉면 */
+.card-cover {
+    position: relative;
+    aspect-ratio: 3 / 4;
+}
+
+.cover-img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 주소의 #card-xxx 와 같은 카드만 보여줌 */
+#card-cake:target ~ .write-main .cover-cake,
+#card-balloon:target ~ .write-main .cover-balloon,
+#card-flower:target ~ .write-main .cover-flower,
+#card-letter:target ~ .write-main .cover-letter,
+#card-confetti:target ~ .write-main .cover-confetti,
+#card-trophy:target ~ .write-main .cover-trophy,
+#card-sun:target ~ .write-main .cover-sun,
+#card-mountain:target ~ .write-main .cover-mountain {
+    display: block;
+}
+
+/* 주소에 #이 없이 들어오면 케이크 카드를 기본으로 */
+.write:not(:has(.card-anchor:target)) .cover-cake {
+    display: block;
+}
+
+/* 접히는 선 느낌 */
+.card-cover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.12) 100%);
+}
+
+/* 오른쪽 : 카드 안쪽 편지지 */
+.card-paper {
+    --paper-color: var(--color-paper);
+    --paper-font: var(--font-hand);
+    --paper-size: 24px;
+
+    display: flex;
+    flex-direction: column;
+    padding: 36px 32px;
+    background-color: var(--paper-color);
+    color: var(--color-text);
+    font-family: var(--paper-font);
+    font-size: var(--paper-size);
+    transition: background-color 0.3s;
+}
+
+.paper-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.paper-label {
+    flex-shrink: 0;
+    font-weight: 700;
+}
+
+.paper-input {
+    flex: 1;
+    min-width: 0;
+    padding: 2px 4px;
+    border: none;
+    border-bottom: 1px dashed rgba(31, 33, 64, 0.3);
+    background: none;
+    font: inherit;
+    color: inherit;
+}
+
+/* 메시지 칸 : 줄 노트 모양 */
+.paper-message {
+    flex: 1;
+    width: 100%;
+    margin: 20px 0;
+    padding: 0 4px;
+    border: none;
+    resize: none;
+    font: inherit;
+    line-height: 36px;
+    color: inherit;
+    background-color: transparent;
+    background-image: repeating-linear-gradient(
+        transparent 0,
+        transparent 35px,
+        rgba(31, 33, 64, 0.14) 35px,
+        rgba(31, 33, 64, 0.14) 36px
+    );
+    background-attachment: local;   /* 글이 길어져 스크롤해도 줄이 같이 움직임 */
+}
+
+.paper-from {
+    justify-content: flex-end;
+}
+
+.paper-from .paper-input {
+    flex: 0 1 160px;
+}
+
+.paper-input::placeholder,
+.paper-message::placeholder {
+    color: rgba(31, 33, 64, 0.35);
+}
+
+.paper-input:focus,
+.paper-message:focus {
+    outline: none;
+}
+
+.paper-input:focus {
+    border-bottom-color: var(--color-rose);
+}
+
+/* ---------- 5. 편지지 색 · 글씨체 바꾸기 ---------- */
+#paper-pink:checked ~ .write-layout .card-paper {
+    --paper-color: #fbe4ea;
+}
+
+#paper-sky:checked ~ .write-layout .card-paper {
+    --paper-color: #e3eefb;
+}
+
+#font-batang:checked ~ .write-layout .card-paper {
+    --paper-font: var(--font-title);
+    --paper-size: 17px;
+}
+
+#font-dodum:checked ~ .write-layout .card-paper {
+    --paper-font: var(--font-body);
+    --paper-size: 17px;
+}
+
+/* ---------- 6. 옵션 영역 ---------- */
+.write-options {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 28px 24px;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.option-title {
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.option-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* 편지지 색 동그라미 */
+.swatch {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.swatch:hover {
+    transform: scale(1.08);
+}
+
+.swatch-cream {
+    background-color: var(--color-paper);
+}
+
+.swatch-pink {
+    background-color: #fbe4ea;
+}
+
+.swatch-sky {
+    background-color: #e3eefb;
+}
+
+/* 글씨체 버튼 */
+.font-chip {
+    padding: 7px 16px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.font-chip:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.font-chip-hand {
+    font-family: var(--font-hand);
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.font-chip-batang {
+    font-family: var(--font-title);
+}
+
+.font-chip-dodum {
+    font-family: var(--font-body);
+}
+
+/* 선택된 옵션 강조 */
+#paper-cream:checked ~ .write-layout .swatch-cream,
+#paper-pink:checked ~ .write-layout .swatch-pink,
+#paper-sky:checked ~ .write-layout .swatch-sky {
+    border-color: var(--color-rose);
+    box-shadow: 0 0 0 3px rgba(224, 122, 143, 0.35);
+}
+
+#font-hand:checked ~ .write-layout .font-chip-hand,
+#font-batang:checked ~ .write-layout .font-chip-batang,
+#font-dodum:checked ~ .write-layout .font-chip-dodum {
+    background-color: var(--color-paper);
+    border-color: var(--color-paper);
+    color: var(--color-night);
+}
+
+/* 키보드로 옵션을 옮길 때 테두리 */
+#paper-cream:focus-visible ~ .write-layout .swatch-cream,
+#paper-pink:focus-visible ~ .write-layout .swatch-pink,
+#paper-sky:focus-visible ~ .write-layout .swatch-sky,
+#font-hand:focus-visible ~ .write-layout .font-chip-hand,
+#font-batang:focus-visible ~ .write-layout .font-chip-batang,
+#font-dodum:focus-visible ~ .write-layout .font-chip-dodum {
+    outline: 2px solid var(--color-white);
+    outline-offset: 3px;
+}
+
+.option-note {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.option-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option-actions .btn {
+    width: 100%;
+}
+
+.option-actions .back-link {
+    margin-top: 18px;
+}
+
+/* ---------- 7. 태블릿 · 모바일 ---------- */
+@media (max-width: 1024px) {
+    .write-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .card-spread {
+        max-width: 720px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .write-options {
+        max-width: 720px;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .write-main {
+        padding: 16px 20px 48px;
+    }
+
+    .write-head {
+        margin: 32px 0 28px;
+    }
+
+    /* 좁은 화면에서는 겉면을 위, 편지지를 아래로 */
+    .card-spread {
+        grid-template-columns: 1fr;
+    }
+
+    .card-cover {
+        aspect-ratio: 16 / 9;
+    }
+
+    .card-cover::after {
+        display: none;
+    }
+
+    .card-paper {
+        min-height: 420px;
+        padding: 28px 22px;
+    }
+}
