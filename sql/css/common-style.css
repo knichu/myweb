@@ -1,0 +1,146 @@
+/* =========================================
+   common-style.css (SQL 사이트)
+   SQL 사이트의 모든 페이지에서 같이 쓰는 기본 스타일
+   ========================================= */
+
+/* ---------- 1. 색상 · 글꼴 변수 ---------- */
+:root {
+    --color-bg: #f1f0eb;
+    --color-ink: #17191e;
+    --color-muted: #6c6e74;
+    --color-line: #d7d5cd;
+    --color-accent: #3550f0;
+
+    --font-body: "Pretendard", "Malgun Gothic", sans-serif;
+    --font-mono: "JetBrains Mono", "D2Coding", monospace;
+}
+
+/* ---------- 2. 리셋 ---------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    line-height: 1.6;
+    word-break: keep-all;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+/* ---------- 3. container ---------- */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1280px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.main {
+    flex: 1;
+}
+
+/* ---------- 4. 헤더 ---------- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    border-bottom: 1px solid var(--color-line);
+}
+
+/* 로고 앞에 코드 글꼴로 > 표시 */
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.logo::before {
+    content: ">_ ";
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+}
+
+.nav-list {
+    display: flex;
+    gap: 28px;
+    font-size: 15px;
+}
+
+.nav-list a {
+    color: var(--color-muted);
+}
+
+.nav-list a:hover,
+.nav-list a[aria-current="page"] {
+    color: var(--color-ink);
+}
+
+/* 지금 페이지 메뉴 밑줄 */
+.nav-list a[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+}
+
+/* ---------- 5. 푸터 ---------- */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 0 40px;
+    border-top: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-muted);
+}
+
+.footer-home {
+    border-bottom: 1px solid var(--color-muted);
+}
+
+.footer-home:hover {
+    color: var(--color-ink);
+}
+
+/* ---------- 6. 모바일 ---------- */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        height: auto;
+        padding: 16px 0;
+    }
+
+    .nav-list {
+        gap: 16px;
+        font-size: 14px;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 4px;
+    }
+}

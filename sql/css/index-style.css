@@ -1,0 +1,73 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-name {
+    margin: 20px;
+}
+
+.name-small {
+    font-size: 13px;
+}
+
+.name-big {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.title-ratio {
+    margin: 20px;
+}
+
+.study-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin: 20px;
+}
+
+.study-element {
+    border: 1px solid lightgray;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.element-title {
+    font-weight: bold;
+}
+
+.element-status {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 5px;
+    justify-self: start;
+}
+
+.study-top3 {
+    margin: 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.top3-title {
+    font-weight: bold;
+}
+
+.top3-list {
+    display: flex;
+    gap: 20px;
+    margin: 20px;
+}
+
+.top3-element {
+    border: 1px solid lightgray;
+    padding: 20px;
+    border-radius: 10px;
+}
