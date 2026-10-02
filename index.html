@@ -3,79 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이야기 우체국</title>
+    <title>작은 웹 작업실 - HTML · CSS 연습 프로젝트</title>
 
-    <!-- 글꼴 (Google Fonts) -->
+    <!-- 글꼴 : Pretendard (본문), JetBrains Mono (숫자 · 태그) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/common-style.css">
     <link rel="stylesheet" href="css/index-style.css">
 </head>
 <body>
-    <div class="container hub">
+    <div class="container home">
 
         <!-- 헤더 -->
         <header class="header">
-            <a href="index.html" class="logo">이야기 우체국</a>
+            <a href="index.html" class="logo">작은 웹 작업실</a>
+            <p class="header-meta">HTML · CSS · No JS</p>
         </header>
 
-        <main class="hub-main">
+        <main class="home-main">
 
-            <!-- 제목 -->
-            <section class="hub-head">
-                <h1 class="hub-title">오늘은 어떤 이야기를<br>건네 볼까요?</h1>
-                <p class="hub-desc">마음을 적어 보내는 카드부터, 잠들기 전 듣는 동화까지</p>
+            <!-- 소개 -->
+            <section class="intro">
+                <p class="intro-label">PROJECT INDEX / 2026</p>
+                <h1 class="intro-title">
+                    공부하면서 만든<br>
+                    <span class="intro-highlight">작은 웹사이트</span>들
+                </h1>
+                <div class="intro-bottom">
+                    <p class="intro-desc">JavaScript 없이 HTML과 CSS만으로 만든 연습 프로젝트를 모아 두었어요. 배운 것을 바로 써 보고, 막혔던 부분은 다시 정리하는 곳이에요.</p>
+                    <dl class="intro-stats">
+                        <div>
+                            <dt>프로젝트</dt>
+                            <dd>03</dd>
+                        </div>
+                        <div>
+                            <dt>완성</dt>
+                            <dd>02</dd>
+                        </div>
+                        <div>
+                            <dt>제작 중</dt>
+                            <dd>01</dd>
+                        </div>
+                    </dl>
+                </div>
             </section>
 
-            <!-- 세 개의 창구 -->
-            <ul class="panels">
+            <!-- 프로젝트 목록 : 행에 마우스를 올리면 미리보기가 떠오름 -->
+            <ol class="projects">
 
-                <!-- 1. 메시지 카드 사이트 -->
-                <li class="panel-item">
-                    <a href="message/index.html" class="panel panel-message">
-                        <span class="panel-bg"></span>
-                        <span class="panel-body">
-                            <span class="panel-label">카드 메시지</span>
-                            <h2 class="panel-title">마음편지</h2>
-                            <p class="panel-desc">카드를 골라 마음을 적고, 링크로 전해요</p>
-                            <span class="panel-cta">들어가기</span>
+                <!-- 01. 메시지 카드 사이트 -->
+                <li class="project">
+                    <a href="message/index.html" class="project-row">
+                        <span class="project-num">01</span>
+                        <span class="project-body">
+                            <span class="project-name">마음편지</span>
+                            <span class="project-desc">카드를 골라 메시지를 쓰고 링크로 전하는 카드 메시지 사이트</span>
                         </span>
+                        <span class="project-tags">
+                            <span class="tag">:target</span>
+                            <span class="tag">radio 필터</span>
+                            <span class="tag">CSS 애니메이션</span>
+                        </span>
+                        <span class="project-status is-done">완성 · 열어 보기</span>
+                        <img src="images/preview-message.jpg" alt="" class="project-preview">
                     </a>
                 </li>
 
-                <!-- 2. 동화 읽어주기 사이트 -->
-                <li class="panel-item">
-                    <a href="story/index.html" class="panel panel-story">
-                        <span class="panel-bg"></span>
-                        <span class="panel-body">
-                            <span class="panel-label">동화</span>
-                            <h2 class="panel-title">달님 동화</h2>
-                            <p class="panel-desc">잠들기 전, 한 장씩 넘기며 읽는 이야기</p>
-                            <span class="panel-cta">들어가기</span>
+                <!-- 02. 동화 사이트 -->
+                <li class="project">
+                    <a href="story/index.html" class="project-row">
+                        <span class="project-num">02</span>
+                        <span class="project-body">
+                            <span class="project-name">달님 동화</span>
+                            <span class="project-desc">책장을 넘기듯 한 쪽씩 읽는 안데르센 동화 읽기 사이트</span>
                         </span>
+                        <span class="project-tags">
+                            <span class="tag">:has()</span>
+                            <span class="tag">3D 책장 넘김</span>
+                            <span class="tag">details</span>
+                        </span>
+                        <span class="project-status is-done">완성 · 열어 보기</span>
+                        <img src="images/preview-story.jpg" alt="" class="project-preview">
                     </a>
                 </li>
 
-                <!-- 3. 미정 -->
-                <li class="panel-item">
-                    <div class="panel panel-next is-soon">
-                        <span class="panel-mark" aria-hidden="true">?</span>
-                        <span class="panel-body">
-                            <span class="panel-label">새 창구</span>
-                            <h2 class="panel-title">다음 이야기</h2>
-                            <p class="panel-desc">어떤 이야기가 들어올지 아직 비밀이에요</p>
-                            <span class="panel-badge">준비 중</span>
+                <!-- 03. SQL 정리 사이트 (제작 중 : 완성되면 div 를 a 로 바꾸고 href="sql/index.html") -->
+                <li class="project">
+                    <div class="project-row is-wip">
+                        <span class="project-num">03</span>
+                        <span class="project-body">
+                            <span class="project-name">SQL 다시 보기</span>
+                            <span class="project-desc">공부하며 헷갈렸던 SQL을 다시 정리하고 복습하는 학습 노트</span>
+                        </span>
+                        <span class="project-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">학습 노트</span>
+                        </span>
+                        <span class="project-status is-wip">제작 중</span>
+
+                        <!-- 미리보기 : 아직 화면이 없어서 코드 창 모양으로 -->
+                        <span class="project-preview preview-sql" aria-hidden="true">
+                            <span class="code-bar"></span>
+                            <code class="code">
+                                <span class="kw">SELECT</span> dept, <span class="fn">COUNT</span>(*)<br>
+                                <span class="kw">FROM</span> emp<br>
+                                <span class="kw">GROUP BY</span> dept<br>
+                                <span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) &gt; <span class="num">3</span>;<br>
+                                <span class="cm">-- WHERE 와 HAVING 의 차이?</span>
+                            </code>
                         </span>
                     </div>
                 </li>
 
-            </ul>
+            </ol>
         </main>
 
         <footer class="footer">
-            <p>&copy; 2026 이야기 우체국</p>
+            <p>&copy; 2026 작은 웹 작업실</p>
+            <p>Made with HTML &amp; CSS only</p>
         </footer>
 
     </div>

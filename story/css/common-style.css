@@ -166,7 +166,7 @@ a:focus-visible {
     text-underline-offset: 3px;
 }
 
-/* 전체 홈(이야기 우체국)으로 가는 링크 */
+/* 전체 프로젝트 목록으로 가는 링크 */
 .footer-home {
     display: inline-block;
     margin-bottom: 6px;

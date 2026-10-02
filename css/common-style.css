@@ -1,19 +1,21 @@
 /* =========================================
-   common-style.css (전체 홈)
-   이야기 우체국 홈에서 같이 쓰는 기본 스타일
-   각 사이트(message, story ...)는 자기 폴더의 CSS를 따로 씀
+   common-style.css (전체 프로젝트 목록)
+   맨 바깥 페이지들이 같이 쓰는 기본 스타일
+   각 프로젝트(message, story, sql)는 자기 폴더의 CSS를 따로 씀
    ========================================= */
 
 /* ---------- 1. 색상 · 글꼴 변수 ---------- */
 :root {
-    --color-ink: #141b45;       /* 바탕 남색 */
-    --color-ink-soft: #232a5c;
-    --color-paper: #fff6ea;     /* 편지지 색 */
-    --color-rose: #e07a8f;      /* 강조 */
-    --color-white: #ffffff;
+    --color-bg: #f1f0eb;        /* 돌색 종이 */
+    --color-ink: #17191e;       /* 글자 */
+    --color-muted: #6c6e74;     /* 흐린 글자 */
+    --color-line: #d7d5cd;      /* 구분선 */
+    --color-accent: #3550f0;    /* 강조 (코발트 블루) */
+    --color-done: #2f9e6a;      /* 완성 */
+    --color-wip: #e59b2f;       /* 제작 중 */
 
-    --font-title: "Gowun Batang", serif;
-    --font-body: "Gowun Dodum", sans-serif;
+    --font-body: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --font-mono: "JetBrains Mono", "D2Coding", monospace;
 
     --radius: 999px;
 }
@@ -34,10 +36,10 @@ body {
 
 body {
     font-family: var(--font-body);
-    background-color: var(--color-ink);
-    color: var(--color-white);
+    background-color: var(--color-bg);
+    color: var(--color-ink);
     line-height: 1.6;
-    word-break: keep-all;      /* 한글이 단어 중간에서 줄바꿈되지 않게 */
+    word-break: keep-all;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -57,17 +59,19 @@ img {
 }
 
 a:focus-visible {
-    outline: 2px solid var(--color-rose);
+    outline: 2px solid var(--color-accent);
     outline-offset: 4px;
 }
 
 /* ---------- 3. 페이지 감싸는 container ---------- */
 .container {
-    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-width: 1280px;
     min-height: 100vh;
+    margin: 0 auto;
+    padding: 0 48px;
 }
 
 /* ---------- 4. 헤더 ---------- */
@@ -75,28 +79,62 @@ a:focus-visible {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
-    padding: 0 40px;
+    height: 80px;
+    border-bottom: 1px solid var(--color-line);
 }
 
 .logo {
-    font-family: var(--font-title);
-    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
     font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* 로고 앞 작은 네모 (작업실 창문) */
+.logo::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background-color: var(--color-accent);
+}
+
+.header-meta {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-muted);
 }
 
 /* ---------- 5. 푸터 ---------- */
 .footer {
-    padding: 24px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 28px 0 40px;
+    border-top: 1px solid var(--color-line);
+    font-family: var(--font-mono);
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--color-muted);
 }
 
 /* ---------- 6. 모바일 ---------- */
 @media (max-width: 768px) {
-    .header {
-        height: 60px;
+    .container {
         padding: 0 20px;
+    }
+
+    .header {
+        height: 64px;
+    }
+
+    .header-meta {
+        display: none;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 4px;
     }
 }

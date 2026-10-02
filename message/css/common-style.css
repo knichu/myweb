@@ -221,7 +221,7 @@ button:focus-visible {
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* 푸터의 전체 홈(이야기 우체국) 링크 */
+/* 푸터의 전체 프로젝트 목록 링크 */
 .footer-home {
     display: inline-block;
     margin-bottom: 8px;

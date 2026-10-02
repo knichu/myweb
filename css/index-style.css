@@ -1,78 +1,88 @@
 /* =========================================
-   index-style.css (전체 홈)
-   세 개의 창구(패널)로 각 사이트에 들어가는 첫 화면
+   index-style.css (전체 프로젝트 목록)
+   소개 + 프로젝트 목록 (행에 마우스를 올리면 미리보기)
    ========================================= */
 
-/* ---------- 1. 전체 배치 ---------- */
-.hub-main {
+.home-main {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 16px 40px 8px;
 }
 
-/* ---------- 2. 제목 ---------- */
-.hub-head {
+/* ---------- 1. 소개 ---------- */
+.intro {
+    padding: 88px 0 72px;
+}
+
+.intro-label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+}
+
+.intro-title {
+    margin-top: 20px;
+    font-size: clamp(44px, 7.4vw, 108px);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+}
+
+/* "작은 웹사이트" 아래에 형광펜 */
+.intro-highlight {
+    background: linear-gradient(transparent 62%, rgba(53, 80, 240, 0.22) 62%);
+}
+
+.intro-bottom {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 24px;
-    margin: 24px 0 36px;
+    gap: 40px;
+    margin-top: 48px;
 }
 
-.hub-title {
-    font-family: var(--font-title);
-    font-size: clamp(32px, 4.6vw, 60px);
+.intro-desc {
+    max-width: 480px;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--color-muted);
+}
+
+/* 숫자 세 개 */
+.intro-stats {
+    display: flex;
+    gap: 40px;
+}
+
+.intro-stats dt {
+    font-size: 13px;
+    color: var(--color-muted);
+}
+
+.intro-stats dd {
+    font-family: var(--font-mono);
+    font-size: 40px;
     font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
-.hub-desc {
-    max-width: 340px;
-    padding-bottom: 8px;
-    color: rgba(255, 255, 255, 0.7);
-    text-align: right;
-}
-
-/* ---------- 3. 패널 목록 ---------- */
-.panels {
-    flex: 1;
-    display: flex;
-    gap: 16px;
-    min-height: 440px;
-}
-
-.panel-item {
-    flex: 1;
-    display: flex;
-    transition: flex-grow 0.5s ease;
-    /* 처음 열릴 때 한 번 차례로 올라옴 */
+/* 처음 열릴 때 한 번 차례로 */
+.intro > * {
     opacity: 0;
     animation: rise 0.8s ease-out forwards;
 }
 
-.panel-item:nth-child(2) {
-    animation-delay: 0.12s;
+.intro > :nth-child(2) {
+    animation-delay: 0.1s;
 }
 
-.panel-item:nth-child(3) {
-    animation-delay: 0.24s;
-}
-
-/* 마우스를 올린 패널이 넓어짐 */
-.panel-item:hover,
-.panel-item:focus-within {
-    flex-grow: 1.7;
+.intro > :nth-child(3) {
+    animation-delay: 0.2s;
 }
 
 @keyframes rise {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(18px);
     }
     to {
         opacity: 1;
@@ -80,194 +90,277 @@
     }
 }
 
-/* ---------- 4. 패널 하나 ---------- */
-.panel {
+/* ---------- 2. 프로젝트 목록 ---------- */
+.projects {
+    margin-bottom: 96px;
+    border-bottom: 1px solid var(--color-line);
+}
+
+/* 한 행 : [번호] [이름 · 설명] [태그] [상태] */
+.project-row {
     position: relative;
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    background-color: var(--color-ink-soft);
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr) auto 150px;
+    align-items: center;
+    gap: 32px;
+    padding: 36px 0;
+    border-top: 1px solid var(--color-line);
+    transition: background-color 0.3s;
 }
 
-/* 배경 그림 */
-.panel-bg {
-    position: absolute;
-    inset: 0;
-    background-position: center;
-    background-size: cover;
-    transition: transform 0.6s ease;
+.project-num {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--color-muted);
 }
 
-.panel-message .panel-bg {
-    background-image: url("../images/panel-message.png");
-}
-
-.panel-story .panel-bg {
-    background-image: url("../images/panel-story.jpg");
-}
-
-.panel-item:hover .panel-bg {
-    transform: scale(1.05);
-}
-
-/* 글자가 잘 보이게 아래쪽을 어둡게 */
-.panel::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10, 13, 35, 0) 35%, rgba(10, 13, 35, 0.85) 100%);
-}
-
-/* ---------- 5. 패널 글자 ---------- */
-.panel-body {
-    position: relative;
-    z-index: 1;
+.project-body {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 28px;
+    gap: 6px;
 }
 
-.panel-label {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.75);
-}
-
-.panel-title {
-    margin-top: 4px;
-    font-family: var(--font-title);
-    font-size: clamp(26px, 2.6vw, 36px);
+.project-name {
+    font-size: clamp(28px, 3.4vw, 44px);
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    transition: color 0.3s, transform 0.3s;
 }
 
-.panel-desc {
-    margin-top: 8px;
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.85);
+.project-desc {
+    font-size: 16px;
+    color: var(--color-muted);
 }
 
-/* 들어가기 버튼 모양 */
-.panel-cta {
-    margin-top: 20px;
-    padding: 10px 24px;
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    max-width: 260px;
+}
+
+.tag {
+    padding: 4px 10px;
     border-radius: var(--radius);
-    background-color: var(--color-paper);
-    color: var(--color-ink);
-    font-size: 15px;
-    font-weight: 700;
-    transition: background-color 0.2s;
+    border: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-muted);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
-.panel:hover .panel-cta {
-    background-color: var(--color-white);
-}
-
-/* 준비 중 표시 */
-.panel-badge {
-    margin-top: 20px;
-    padding: 8px 18px;
-    border-radius: var(--radius);
-    border: 1px dashed rgba(255, 255, 255, 0.5);
+/* 상태 : 앞에 색 점 */
+.project-status {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
 }
 
-/* ---------- 6. 준비 중 패널 ---------- */
-.is-soon {
+.project-status::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-done);
+}
+
+.project-status.is-wip {
+    color: var(--color-muted);
+}
+
+/* 제작 중은 점이 깜빡임 */
+.project-status.is-wip::before {
+    background-color: var(--color-wip);
+    animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.25;
+    }
+}
+
+/* ---------- 3. 마우스를 올렸을 때 ---------- */
+a.project-row:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+a.project-row:hover .project-name {
+    color: var(--color-accent);
+    transform: translateX(8px);
+}
+
+.project-row.is-wip {
     cursor: default;
 }
 
-/* 아직 그림이 없는 3번째 창구 */
-.panel-next {
-    border: 2px dashed rgba(255, 255, 255, 0.2);
-    background-color: rgba(255, 255, 255, 0.03);
-}
-
-.panel-next::after {
-    display: none;
-}
-
-.panel-mark {
+/* ---------- 4. 떠오르는 미리보기 ---------- */
+/* 행 오른쪽 위에 겹쳐 두었다가 hover 때만 보임 */
+.project-preview {
     position: absolute;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-title);
-    font-size: clamp(140px, 14vw, 220px);
+    top: 50%;
+    right: 210px;
+    z-index: 2;
+    width: 340px;
+    aspect-ratio: 16 / 10;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow:
+        0 24px 50px rgba(23, 25, 30, 0.25),
+        0 0 0 1px rgba(23, 25, 30, 0.08);
+    opacity: 0;
+    transform: translateY(-40%) rotate(-4deg) scale(0.92);
+    transition: opacity 0.35s, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+.project-row:hover .project-preview,
+.project-row:focus-visible .project-preview {
+    opacity: 1;
+    transform: translateY(-50%) rotate(-2deg) scale(1);
+}
+
+/* SQL 미리보기 : 코드 창 모양 */
+.preview-sql {
+    display: flex;
+    flex-direction: column;
+    background-color: #1c1f2b;
+}
+
+/* 창 위쪽 막대 + 동그라미 세 개 */
+.code-bar {
+    height: 30px;
+    border-radius: 10px 10px 0 0;
+    background:
+        radial-gradient(circle at 16px 50%, #ff6b5f 5px, transparent 6px),
+        radial-gradient(circle at 34px 50%, #f5bd4f 5px, transparent 6px),
+        radial-gradient(circle at 52px 50%, #5ccb6a 5px, transparent 6px),
+        #2a2e3d;
+}
+
+.code {
+    padding: 18px 22px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.75;
+    color: #d7dae6;
+}
+
+.code .kw {
+    color: #8fa2ff;
     font-weight: 700;
-    line-height: 1;
-    color: rgba(255, 255, 255, 0.07);
-    transition: color 0.4s;
 }
 
-.panel-item:hover .panel-mark {
-    color: rgba(255, 255, 255, 0.14);
+.code .fn {
+    color: #f5bd4f;
 }
 
-/* ---------- 7. 움직임 줄이기 ---------- */
+.code .num {
+    color: #ff8f7a;
+}
+
+.code .cm {
+    color: #7c8299;
+}
+
+/* ---------- 5. 움직임 줄이기 ---------- */
 @media (prefers-reduced-motion: reduce) {
-    .panel-item {
+    .intro > * {
         opacity: 1;
         animation: none;
-        transition: none;
     }
 
-    .panel-bg {
+    .project-status.is-wip::before {
+        animation: none;
+    }
+
+    .project-preview,
+    .project-name {
         transition: none;
     }
 }
 
-/* ---------- 8. 태블릿 · 모바일 ---------- */
-@media (max-width: 900px) {
-    .hub-head {
+/* ---------- 6. 태블릿 ---------- */
+@media (max-width: 1024px) {
+    .project-row {
+        grid-template-columns: 56px minmax(0, 1fr) 130px;
+    }
+
+    /* 태그는 이름 아래 줄로 */
+    .project-tags {
+        grid-column: 2;
+        grid-row: 2;
+        justify-content: flex-start;
+        max-width: none;
+    }
+
+    .project-preview {
+        right: 160px;
+        width: 280px;
+    }
+}
+
+/* ---------- 7. 모바일 : 미리보기를 항상 보이게, 세로로 쌓기 ---------- */
+@media (max-width: 768px) {
+    .intro {
+        padding: 48px 0 40px;
+    }
+
+    .intro-bottom {
         flex-direction: column;
         align-items: flex-start;
+        gap: 28px;
+        margin-top: 28px;
     }
 
-    .hub-desc {
-        max-width: none;
-        text-align: left;
+    .intro-stats dd {
+        font-size: 32px;
     }
 
-    /* 세로로 쌓기 : 넓어지는 효과 없음 */
-    .panels {
-        flex-direction: column;
-        min-height: 0;
+    .project-row {
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        padding: 28px 0;
     }
 
-    .panel-item,
-    .panel-item:hover,
-    .panel-item:focus-within {
-        flex: none;
+    .project-num {
+        grid-column: 1;
+        grid-row: 2;
     }
 
-    .panel {
-        min-height: 300px;
-    }
-}
-
-@media (max-width: 768px) {
-    .hub-main {
-        padding: 8px 20px 8px;
+    .project-status {
+        grid-column: 2;
+        grid-row: 2;
     }
 
-    .hub-head {
-        margin: 16px 0 24px;
+    .project-body {
+        grid-column: 1 / -1;
+        grid-row: 3;
     }
 
-    .panel {
-        min-height: 260px;
+    .project-tags {
+        grid-column: 1 / -1;
+        grid-row: 4;
     }
 
-    .panel-body {
-        padding: 22px;
+    .project-preview,
+    .project-row:hover .project-preview {
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+        margin-bottom: 8px;
+        opacity: 1;
+        transform: none;
+        box-shadow: 0 0 0 1px rgba(23, 25, 30, 0.08);
     }
 
-    /* 동화 그림의 달님이 보이게 위쪽을 보여줌 */
-    .panel-story .panel-bg {
-        background-position: center 30%;
+    a.project-row:hover .project-name {
+        transform: none;
     }
 }
