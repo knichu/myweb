@@ -1,0 +1,210 @@
+/* =========================================
+   common-style.css (동화 사이트)
+   동화 사이트의 모든 페이지에서 같이 쓰는 기본 스타일
+   ========================================= */
+
+/* ---------- 1. 색상 · 글꼴 변수 ---------- */
+:root {
+    /* 배경 그림에서 뽑은 색 */
+    --color-sky: #6e79b8;        /* 저녁 하늘 */
+    --color-sky-deep: #3f4785;   /* 짙은 하늘 */
+    --color-peach: #f3c8b3;      /* 노을 */
+    --color-moon: #fbe38a;       /* 달님 */
+    --color-grass: #a9c98a;      /* 언덕 */
+    --color-paper: #fff8ec;      /* 책 종이 */
+    --color-ink: #2f3468;        /* 본문 글자 */
+
+    /* 글꼴 */
+    --font-title: "Gaegu", cursive;          /* 제목 : 크레용 손글씨 */
+    --font-story: "Gowun Batang", serif;     /* 동화 본문 */
+    --font-body: "Gowun Dodum", sans-serif;  /* 버튼 · 안내 */
+
+    --radius: 999px;
+}
+
+/* ---------- 2. 리셋 ---------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;   /* #books 로 이동할 때 부드럽게 */
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    line-height: 1.6;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a:focus-visible {
+    outline: 3px solid var(--color-moon);
+    outline-offset: 4px;
+}
+
+/* ---------- 3. 페이지 감싸는 container ---------- */
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ---------- 4. 헤더 ---------- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    padding: 0 40px;
+    color: var(--color-white, #ffffff);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-title);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* 로고 앞 작은 달 */
+.logo::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--color-moon);
+    box-shadow: 0 0 12px rgba(251, 227, 138, 0.8);
+}
+
+.header-link {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.header-link:hover {
+    opacity: 1;
+}
+
+/* ---------- 5. 버튼 ---------- */
+.btn {
+    display: inline-block;
+    padding: 15px 36px;
+    border-radius: var(--radius);
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* 달님 색 버튼 */
+.btn-moon {
+    background-color: var(--color-moon);
+    color: var(--color-ink);
+    box-shadow: 0 6px 20px rgba(251, 227, 138, 0.35);
+}
+
+.btn-moon:hover {
+    background-color: #fff0b0;
+}
+
+/* 테두리 버튼 */
+.btn-line {
+    border: 2px solid rgba(47, 52, 104, 0.25);
+    color: var(--color-ink);
+}
+
+.btn-line:hover {
+    border-color: var(--color-ink);
+}
+
+/* ---------- 6. 푸터 ---------- */
+.footer {
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.75);
+    background-color: var(--color-sky-deep);
+}
+
+.footer a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* 전체 홈(이야기 우체국)으로 가는 링크 */
+.footer-home {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: var(--color-moon);
+}
+
+/* ---------- 7. 화면에서는 숨기고 화면낭독기만 읽는 글자 ---------- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* ---------- 8. 모바일 ---------- */
+@media (max-width: 768px) {
+    .header {
+        height: 60px;
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+}
+
+/* ---------- 9. 헤더 오른쪽 링크 묶음 ---------- */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .header-right {
+        gap: 14px;
+        font-size: 14px;
+    }
+}

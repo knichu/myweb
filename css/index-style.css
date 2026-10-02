@@ -105,7 +105,7 @@
 }
 
 .panel-story .panel-bg {
-    background-image: url("../images/panel-story.svg");
+    background-image: url("../images/panel-story.jpg");
 }
 
 .panel-item:hover .panel-bg {
@@ -266,8 +266,8 @@
         padding: 22px;
     }
 
-    /* 동화 그림의 책이 글자에 가리지 않게 위쪽을 보여줌 */
+    /* 동화 그림의 달님이 보이게 위쪽을 보여줌 */
     .panel-story .panel-bg {
-        background-position: center 10%;
+        background-position: center 30%;
     }
 }

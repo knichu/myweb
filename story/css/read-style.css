@@ -1,0 +1,980 @@
+/* =========================================
+   read-style.css (동화 사이트)
+   동화 읽기 페이지 (read-xxx.html 5개가 같이 씀)
+   왼쪽 : 표지 / 오른쪽 : 본문
+   페이지 넘기기는 주소의 #page-2 같은 :target 으로 (JS 없음)
+   읽기 설정(글꼴 · 크기 · 밤 모드 · 펼침 보기)은 :has() 로 (JS 없음)
+   ========================================= */
+
+/* ---------- 1. 페이지 배경 : 흐릿한 밤하늘 그림 ---------- */
+.reader {
+    /* 읽기 설정이 바꾸는 값들 */
+    --story-font: var(--font-story);
+    --base-size: 17px;
+    --font-scale: 1;
+    --size-scale: 1;
+
+    isolation: isolate;          /* ::before 를 이 안쪽 맨 뒤에 깔기 위해 */
+    color: #ffffff;
+    background-color: var(--color-sky-deep);
+}
+
+.reader::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: url("../images/bg.jpg") center / cover no-repeat;
+    filter: blur(10px) brightness(0.6);
+    transform: scale(1.1);       /* 흐림 때문에 생기는 테두리 숨기기 */
+}
+
+/* 설정 창이 책 위로 펼쳐지도록 헤더를 위로 */
+.reader .header {
+    position: relative;
+    z-index: 10;
+}
+
+/* 읽는 화면에서는 푸터도 배경 그림 위에 투명하게 */
+.reader .footer {
+    background-color: transparent;
+}
+
+.reader-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px 48px;
+}
+
+/* ---------- 2. 펼친 책 ---------- */
+.book {
+    /* 책 종이 색 (밤 모드에서 한꺼번에 바뀜) */
+    --page-bg: var(--color-paper);
+    --left-bg: #fbf1e2;
+    --page-ink: var(--color-ink);
+    --page-muted: rgba(47, 52, 104, 0.6);
+    --page-line: rgba(47, 52, 104, 0.2);
+    --accent: var(--color-sky);
+    --accent-deep: var(--color-sky-deep);
+
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(0, 1fr);   /* 표지 그림이 커도 책 높이를 넘지 않게 */
+    width: min(1100px, 100%);
+    height: clamp(520px, 78vh, 720px);
+    border-radius: 10px;
+    box-shadow:
+        0 30px 60px rgba(10, 12, 40, 0.5),
+        0 0 0 10px rgba(255, 248, 236, 0.12);   /* 책 표지 두께 */
+    color: var(--page-ink);
+}
+
+/* 가운데 접힌 부분 그림자 */
+.book::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 60px;
+    height: 100%;
+    margin-left: -30px;
+    background: linear-gradient(90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(60, 40, 20, 0.16) 45%,
+        rgba(60, 40, 20, 0.22) 50%,
+        rgba(60, 40, 20, 0.16) 55%,
+        rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* ---------- 3. 왼쪽 : 표지 ---------- */
+.book-left {
+    display: flex;
+    flex-direction: column;
+    padding: 36px 40px 32px;
+    border-radius: 10px 0 0 10px;
+    background-color: var(--left-bg);
+    transition: background-color 0.4s;
+}
+
+/* 표지 바탕색이 책 종이색과 같아서 contain 으로 넣으면 종이에 그린 그림처럼 보임 */
+.cover-img {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    object-fit: contain;
+}
+
+.cover-caption {
+    margin-top: 22px;
+    text-align: center;
+}
+
+.cover-title {
+    font-family: var(--font-title);
+    font-size: clamp(32px, 3.4vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.cover-author {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--page-muted);
+}
+
+.cover-author a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* ---------- 4. 오른쪽 : 본문 페이지 ---------- */
+.book-right {
+    position: relative;
+    border-radius: 0 10px 10px 0;
+    background-color: var(--page-bg);
+    transition: background-color 0.4s;
+}
+
+/* 모든 쪽을 같은 자리에 겹쳐 두고 하나만 보여줌 */
+.page {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    padding: 48px 52px 28px;
+    perspective: 4000px;         /* 넘어가는 종이(::before)가 입체적으로 (값이 작을수록 과장됨) */
+    scroll-margin-top: 100vh;    /* #page-2 로 이동해도 화면이 아래로 튀지 않게 */
+}
+
+/* 주소의 #page-N 과 같은 쪽만 보여줌 */
+.page:target {
+    display: flex;
+}
+
+/* 주소에 # 이 없으면 첫 쪽 */
+.book-right:not(:has(.page:target)) .page:first-child {
+    display: flex;
+}
+
+/* ---------- 5. 책장 넘기는 효과 ---------- */
+/* 새 쪽 위에 종이 한 장을 덮어 두었다가, 책등을 축으로 왼쪽으로 넘김 */
+.page:target::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 0 10px 10px 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, var(--page-bg) 30%, var(--page-bg) 100%);
+    box-shadow: -6px 0 20px rgba(60, 40, 20, 0.15);
+    transform-origin: left center;
+    backface-visibility: hidden; /* 반쯤 넘어가면 뒷면은 안 보이게 */
+    animation: turn-page 0.8s ease-in-out forwards;
+}
+
+@keyframes turn-page {
+    from {
+        transform: rotateY(0);
+    }
+    to {
+        transform: rotateY(-180deg);
+    }
+}
+
+/* 글자는 종이가 넘어간 뒤 살짝 나타남 */
+.page:target .page-text {
+    animation: text-in 0.6s ease-out 0.35s both;
+}
+
+@keyframes text-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ---------- 6. 본문 글 ---------- */
+.page-text {
+    flex: 1;
+    overflow-y: auto;            /* 글이 넘치면 쪽 안에서만 스크롤 */
+    font-family: var(--story-font);
+    font-size: calc(var(--base-size) * var(--font-scale) * var(--size-scale));
+    line-height: 1.9;
+}
+
+.page-text p + p {
+    margin-top: 0.7em;
+}
+
+/* 동화 첫 문단 첫 글자를 크게 (그림책 느낌) */
+.dropcap::first-letter {
+    float: left;
+    margin: 6px 8px 0 0;
+    font-family: var(--font-title);
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 0.8;
+    color: var(--accent);
+}
+
+/* 장 제목 (눈의 여왕 : 첫 번째 이야기 ~ 일곱 번째 이야기) */
+.chapter {
+    margin-bottom: 18px;
+    font-family: var(--font-title);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--accent-deep);
+}
+
+.chapter-num {
+    display: block;
+    margin-bottom: 4px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--accent);
+}
+
+/* 장 안의 작은 제목 (참나리 꽃은 뭐라고 말했을까? 등) */
+.sub-heading {
+    margin: 18px 0 6px;
+    font-family: var(--font-title);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.page-text p + .sub-heading {
+    margin-top: 22px;
+}
+
+/* ---------- 6-1. 차례 쪽 ---------- */
+.page-toc .page-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.toc-eyebrow {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--accent);
+}
+
+.toc-title {
+    margin-bottom: 20px;
+    font-family: var(--font-title);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.toc-list a {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 9px 4px;
+    border-bottom: 1px dashed var(--page-line);
+    transition: color 0.2s, padding-left 0.2s;
+}
+
+.toc-list a:hover {
+    padding-left: 10px;
+    color: var(--accent);
+}
+
+.toc-num {
+    flex-shrink: 0;
+    width: 104px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--page-muted);
+}
+
+/* ---------- 7. 쪽 위 진행 막대 · 쪽 아래 이전/다음 ---------- */
+/* <progress> 태그 : value / max 로 읽은 정도를 보여줌 */
+.page-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border: none;
+    appearance: none;
+    background-color: var(--page-line);
+}
+
+.page-progress::-webkit-progress-bar {
+    background-color: var(--page-line);
+}
+
+.page-progress::-webkit-progress-value {
+    background-color: var(--color-moon);
+}
+
+.page-progress::-moz-progress-bar {
+    background-color: var(--color-moon);
+}
+
+/* 3칸 : [이전] [쪽 번호] [다음] */
+.page-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: 62px;            /* 버튼이 없는 쪽도 높이를 같게 (펼침 보기 왼쪽) */
+    padding-top: 18px;
+    border-top: 1px dashed var(--page-line);
+}
+
+.page-num {
+    grid-column: 2;
+    font-family: var(--font-title);
+    font-size: 20px;
+    color: var(--page-muted);
+}
+
+.page-btn {
+    min-width: 92px;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.page-prev {
+    grid-column: 1;
+    justify-self: start;
+    border: 2px solid var(--page-line);
+}
+
+.page-prev:hover {
+    border-color: var(--page-ink);
+}
+
+.page-next {
+    grid-column: 3;
+    justify-self: end;
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+.page-next:hover {
+    background-color: var(--accent-deep);
+}
+
+/* 첫 쪽의 "이전"처럼 누를 수 없는 버튼 */
+.page-btn.is-disabled {
+    visibility: hidden;
+}
+
+/* step-2 는 펼침 보기용 (두 쪽씩 넘기는 링크). 평소엔 숨김 */
+.page-nav .step-2 {
+    display: none;
+}
+
+/* ---------- 8. 마지막 쪽 : 끝 ---------- */
+.page-end .page-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-story);
+    font-size: 17px;
+    text-align: center;
+}
+
+.end-mark {
+    font-family: var(--font-title);
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
+}
+
+.end-message {
+    margin-top: 8px;
+    line-height: 1.7;
+}
+
+.end-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 260px;
+    margin-top: 20px;
+    font-family: var(--font-body);
+}
+
+.end-actions .btn {
+    padding: 12px 20px;
+    font-size: 15px;
+}
+
+.end-actions .btn-line {
+    border-color: var(--page-line);
+    color: var(--page-ink);
+}
+
+.end-links {
+    margin-top: 6px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--page-muted);
+}
+
+.end-links a {
+    color: var(--accent-deep);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* 출처 표기 (공유마당 형식) */
+.credit {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 16px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background-color: rgba(110, 121, 184, 0.08);
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: left;
+    color: var(--page-muted);
+}
+
+.credit-title {
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: var(--page-ink);
+}
+
+/* dt(항목 이름) | dd(내용) 두 칸 표 */
+.credit-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2px 12px;
+}
+
+.credit-list a,
+.credit-more a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.credit-license {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.credit-badge {
+    height: 18px;
+    width: auto;
+}
+
+/* 옮긴이 소개 (details : 누르면 펼쳐짐) */
+.credit-more {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--page-line);
+}
+
+.credit-more summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--page-ink);
+}
+
+.credit-more p {
+    margin-top: 6px;
+}
+
+/* ---------- 9. 읽기 설정 창 (헤더) ---------- */
+/* details : 누르면 열리고 닫히는 HTML 기본 태그 */
+.settings {
+    position: relative;
+}
+
+.settings-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 15px;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.2s;
+}
+
+.settings-btn::-webkit-details-marker {
+    display: none;
+}
+
+/* 앞에 작은 "가" 아이콘 */
+.settings-btn::before {
+    content: "가";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--color-moon);
+    color: var(--color-ink);
+    font-family: var(--font-story);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.settings-btn:hover,
+.settings[open] .settings-btn {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.settings-btn:focus-visible {
+    outline: 3px solid var(--color-moon);
+    outline-offset: 3px;
+}
+
+.settings-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 280px;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: var(--color-paper);
+    box-shadow: 0 18px 40px rgba(10, 12, 40, 0.35);
+    color: var(--color-ink);
+}
+
+.setting {
+    border: none;
+}
+
+.setting legend {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: rgba(47, 52, 104, 0.6);
+}
+
+/* 라디오는 숨기고 label 을 버튼처럼 */
+.setting input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.setting label {
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(47, 52, 104, 0.2);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.setting label:hover {
+    border-color: var(--color-ink);
+}
+
+.setting input:checked + label {
+    background-color: var(--color-sky);
+    border-color: var(--color-sky);
+    color: #ffffff;
+}
+
+.setting input:focus-visible + label {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 2px;
+}
+
+/* 글꼴 · 크기 버튼은 미리보기처럼 */
+label[for="font-batang"] {
+    font-family: var(--font-story);
+}
+
+label[for="font-dodum"] {
+    font-family: var(--font-body);
+}
+
+label[for="font-hand"] {
+    font-family: var(--font-title);
+    font-size: 17px;
+}
+
+label[for="size-s"] {
+    font-size: 12px;
+}
+
+label[for="size-l"] {
+    font-size: 17px;
+}
+
+/* 밤 모드 스위치 : 체크박스 + label */
+.setting .switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    border: none;
+}
+
+.switch::before {
+    content: "";
+    flex-shrink: 0;
+    width: 40px;
+    height: 22px;
+    border-radius: var(--radius);
+    background:
+        radial-gradient(circle at 11px 50%, #ffffff 8px, transparent 9px),
+        rgba(47, 52, 104, 0.25);
+    transition: background 0.25s;
+}
+
+.setting input:checked + .switch {
+    background-color: transparent;
+    color: var(--color-ink);
+}
+
+.setting input:checked + .switch::before {
+    background:
+        radial-gradient(circle at 29px 50%, var(--color-moon) 8px, transparent 9px),
+        var(--color-sky-deep);
+}
+
+/* ---------- 10. 설정 적용 : 글꼴 · 크기 · 밤 모드 ---------- */
+/* .reader 안에 체크된 단추가 "있으면(:has)" 변수 값을 바꿈 */
+.reader:has(#font-dodum:checked) {
+    --story-font: var(--font-body);
+}
+
+.reader:has(#font-hand:checked) {
+    --story-font: var(--font-title);
+    --font-scale: 1.25;          /* 손글씨 글꼴은 글자가 작아 보여서 키움 */
+}
+
+.reader:has(#size-s:checked) {
+    --size-scale: 0.9;
+}
+
+.reader:has(#size-l:checked) {
+    --size-scale: 1.15;          /* 크게 하면 쪽 안에서 스크롤이 생길 수 있음 */
+}
+
+/* 밤 모드 : 잠자리에서 눈부시지 않게 */
+.reader:has(#night-mode:checked) .book {
+    --page-bg: #262c57;
+    --left-bg: #20264d;
+    --page-ink: #ece8f7;
+    --page-muted: rgba(236, 232, 247, 0.6);
+    --page-line: rgba(236, 232, 247, 0.18);
+    --accent: #b9c0f2;
+    --accent-deep: #d8dcfa;
+}
+
+.reader:has(#night-mode:checked) .cover-img {
+    border-radius: 12px;
+    filter: brightness(0.85);
+}
+
+.reader:has(#night-mode:checked) .page-next {
+    color: var(--color-ink);
+}
+
+.reader:has(#night-mode:checked) .credit {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- 11. 펼침 보기 : 왼쪽 · 오른쪽 두 쪽에 본문 ---------- */
+/*
+   왼쪽 자리 : 주소의 #page-N (:target)
+   오른쪽 자리 : 그 바로 다음 쪽 (:target + .page)
+   "다음 장"은 두 쪽씩 넘기는 step-2 링크를 보여줌
+*/
+@media (min-width: 769px) {
+    .reader:has(#view-spread:checked) .book-left {
+        display: none;
+    }
+
+    .reader:has(#view-spread:checked) .book-right {
+        grid-column: 1 / -1;
+        border-radius: 10px;
+    }
+
+    /* 모든 쪽은 기본으로 왼쪽 절반 */
+    .reader:has(#view-spread:checked) .page {
+        right: 50%;
+    }
+
+    /* 마지막 "끝" 쪽을 보고 있으면 그 앞 쪽을 왼쪽에 */
+    .reader:has(#view-spread:checked) .page:has(+ .page-end:target) {
+        display: flex;
+    }
+
+    /* 오른쪽 절반 */
+    .reader:has(#view-spread:checked) .page:target + .page,
+    .reader:has(#view-spread:checked) .book-right:not(:has(.page:target)) .page:first-child + .page,
+    .reader:has(#view-spread:checked) .page-end:target {
+        display: flex;
+        left: 50%;
+        right: 0;
+    }
+
+    /* 넘기는 종이는 오른쪽 쪽에서만 */
+    .reader:has(#view-spread:checked) .page:target::before {
+        display: none;
+    }
+
+    .reader:has(#view-spread:checked) .page:target + .page::before,
+    .reader:has(#view-spread:checked) .page-end:target::before {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        border-radius: 0 10px 10px 0;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, var(--page-bg) 30%, var(--page-bg) 100%);
+        box-shadow: -6px 0 20px rgba(60, 40, 20, 0.15);
+        transform-origin: left center;
+        backface-visibility: hidden;
+        animation: turn-page 0.8s ease-in-out forwards;
+    }
+
+    .reader:has(#view-spread:checked) .page:target + .page .page-text {
+        animation: text-in 0.6s ease-out 0.35s both;
+    }
+
+    /* 진행 막대는 오른쪽 쪽 것만 */
+    .reader:has(#view-spread:checked) .page .page-progress {
+        display: none;
+    }
+
+    /* 버튼 : 한 쪽씩(step-1) 숨기고, 오른쪽 쪽에만 두 쪽씩(step-2) */
+    .reader:has(#view-spread:checked) .page-nav .step-1 {
+        display: none;
+    }
+
+    .reader:has(#view-spread:checked) .page:target + .page .step-2,
+    .reader:has(#view-spread:checked) .book-right:not(:has(.page:target)) .page:first-child + .page .step-2,
+    .reader:has(#view-spread:checked) .page-end:target .step-2 {
+        display: block;
+    }
+
+    .reader:has(#view-spread:checked) .page:target + .page .page-progress,
+    .reader:has(#view-spread:checked) .book-right:not(:has(.page:target)) .page:first-child + .page .page-progress,
+    .reader:has(#view-spread:checked) .page-end:target .page-progress {
+        display: block;
+    }
+}
+
+/* ---------- 12. 움직임 줄이기 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .page:target::before,
+    .reader .page::before {
+        display: none !important;
+    }
+
+    .page .page-text {
+        animation: none !important;
+    }
+}
+
+/* ---------- 13. 높이가 낮은 노트북 (예: 1366×768) ---------- */
+/* 쪽은 1440×820 화면 기준으로 나눠 두었음. 더 낮은 화면에서는 글자를 살짝 줄여서 맞춤 */
+@media (min-width: 769px) and (max-height: 800px) {
+    .reader {
+        --base-size: 16px;
+    }
+
+    .reader .header {
+        height: 56px;
+    }
+
+    .reader-main {
+        padding-top: 4px;
+        padding-bottom: 24px;
+    }
+
+    .book {
+        height: calc(100vh - 110px);
+    }
+
+    .page {
+        padding-top: 36px;
+    }
+
+    .page-text {
+        line-height: 1.82;
+    }
+}
+
+/* ---------- 14. 모바일 : 표지는 작게 위로, 본문은 아래 ---------- */
+@media (max-width: 768px) {
+    .reader {
+        --base-size: 16px;
+    }
+
+    /* 좁은 화면에서는 펼침 보기 설정을 숨김 */
+    .setting-view,
+    .reader .header-link {
+        display: none;
+    }
+
+    .settings-panel {
+        width: min(280px, calc(100vw - 40px));
+    }
+
+    .reader-main {
+        align-items: flex-start;
+        padding: 8px 16px 32px;
+    }
+
+    .book {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+    }
+
+    .book::after {
+        display: none;
+    }
+
+    .book-left {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .cover-img {
+        flex: none;
+        width: 72px;
+        height: 96px;
+        object-fit: cover;
+        border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(47, 52, 104, 0.2);
+    }
+
+    .cover-caption {
+        margin-top: 0;
+        text-align: left;
+    }
+
+    .cover-title {
+        font-size: 30px;
+    }
+
+    .book-right {
+        min-height: 72vh;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .page {
+        padding: 28px 22px 20px;
+    }
+
+    .page-text {
+        line-height: 1.85;
+    }
+
+    .chapter {
+        font-size: 26px;
+    }
+
+    .page-btn {
+        min-width: 78px;
+        padding: 8px 14px;
+    }
+}
+
+/* ---------- 15. 인쇄 : 쪽 구분 없이 동화 전체를 이어서 ---------- */
+@media print {
+    .reader {
+        color: #000000;
+        background: none;
+    }
+
+    .reader::before,
+    .header,
+    .footer,
+    .page-nav,
+    .page-progress,
+    .end-actions,
+    .end-links,
+    .credit-more {
+        display: none !important;
+    }
+
+    .reader-main {
+        display: block;
+        padding: 0;
+    }
+
+    .book {
+        display: block;
+        height: auto;
+        box-shadow: none;
+    }
+
+    .book::after,
+    .page::before {
+        display: none !important;
+    }
+
+    .book-left {
+        height: 90vh;
+        break-after: page;
+        background: none;
+    }
+
+    .book-right {
+        background: none;
+    }
+
+    .page,
+    .reader .page {
+        position: static;
+        display: block !important;
+        padding: 0;
+    }
+
+    .page-text {
+        overflow: visible;
+        font-size: 12pt;
+        animation: none !important;
+    }
+
+    .page + .page .page-text p:first-child {
+        margin-top: 0.7em;
+    }
+
+    .chapter {
+        break-before: page;
+    }
+
+    .page-toc,
+    .page-end {
+        break-before: page;
+        break-after: page;
+    }
+}

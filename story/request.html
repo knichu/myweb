@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동화 신청 - 달님 동화</title>
+
+    <!-- 글꼴 (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/common-style.css">
+    <link rel="stylesheet" href="css/request-style.css">
+</head>
+<body>
+    <div class="container request">
+
+        <!-- 헤더 -->
+        <header class="header">
+            <a href="index.html" class="logo">달님 동화</a>
+            <nav class="header-right">
+                <a href="index.html#books" class="header-link">동화 고르기</a>
+                <a href="../index.html" class="header-link">이야기 우체국 홈</a>
+            </nav>
+        </header>
+
+        <main class="request-main">
+
+            <section class="request-head">
+                <h1 class="request-title">읽고 싶은 동화를 신청해요</h1>
+                <p class="request-desc">신청이 많은 동화부터 달님이 책장에 꽂아 둘게요</p>
+            </section>
+
+            <!--
+                신청 카드 (도서관 대출 카드 모양)
+                JS 와 서버가 없어서 실제로 어딘가에 저장되지는 않음.
+                "보내기"를 누르면 required / type="email" 같은 HTML 검사만 하고 request-done.html 로 이동.
+                실제로 받으려면 action 을 폼 서비스(구글 폼, Formspree 등) 주소로 바꾸면 됨.
+            -->
+            <form action="request-done.html" method="get" class="request-card">
+
+                <div class="card-top">
+                    <p class="card-label">달님 도서관 · 동화 신청 카드</p>
+                    <span class="card-stamp" aria-hidden="true">신청</span>
+                </div>
+
+                <!-- 동화 제목 : datalist 로 추천 목록이 뜸 -->
+                <div class="field">
+                    <label for="tale" class="field-label">읽고 싶은 동화 <span class="required">필수</span></label>
+                    <input type="text" id="tale" name="tale" list="tale-list" class="field-input" placeholder="예) 헨젤과 그레텔" maxlength="40" required>
+                    <datalist id="tale-list">
+                        <option value="헨젤과 그레텔">
+                        <option value="빨간 모자">
+                        <option value="백설 공주">
+                        <option value="신데렐라">
+                        <option value="잭과 콩나무">
+                        <option value="브레멘 음악대">
+                        <option value="피노키오">
+                        <option value="벌거벗은 임금님">
+                        <option value="장화 신은 고양이">
+                        <option value="이상한 나라의 앨리스">
+                        <option value="오즈의 마법사">
+                    </datalist>
+                </div>
+
+                <!-- 누구에게 읽어 줄지 : 라디오 버튼을 칩 모양으로 -->
+                <fieldset class="field">
+                    <legend class="field-label">누구에게 읽어 줄까요? <span class="required">필수</span></legend>
+                    <div class="chips">
+                        <input type="radio" name="reader" id="reader-1" value="3-5" required>
+                        <label for="reader-1">3~5살</label>
+                        <input type="radio" name="reader" id="reader-2" value="6-7">
+                        <label for="reader-2">6~7살</label>
+                        <input type="radio" name="reader" id="reader-3" value="elementary-low">
+                        <label for="reader-3">초등 저학년</label>
+                        <input type="radio" name="reader" id="reader-4" value="elementary-high">
+                        <label for="reader-4">초등 고학년</label>
+                        <input type="radio" name="reader" id="reader-5" value="me">
+                        <label for="reader-5">나에게</label>
+                    </div>
+                </fieldset>
+
+                <div class="field">
+                    <label for="reason" class="field-label">이 동화를 고른 이유</label>
+                    <textarea id="reason" name="reason" class="field-input field-lined" rows="4" maxlength="300" placeholder="어릴 때 할머니가 읽어 주시던 동화예요."></textarea>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="nickname" class="field-label">신청하는 사람 <span class="required">필수</span></label>
+                        <input type="text" id="nickname" name="nickname" class="field-input" placeholder="별명" maxlength="20" required>
+                    </div>
+                    <div class="field">
+                        <label for="email" class="field-label">이메일</label>
+                        <input type="email" id="email" name="email" class="field-input" placeholder="추가되면 알려 드려요">
+                    </div>
+                </div>
+
+                <div class="agree">
+                    <input type="checkbox" id="agree" name="agree" required>
+                    <label for="agree">입력한 내용을 동화 신청 확인에 쓰는 데 동의해요 <span class="required">필수</span></label>
+                </div>
+
+                <button type="submit" class="btn btn-moon request-submit">달님에게 보내기</button>
+            </form>
+
+        </main>
+
+        <footer class="footer">
+            <a href="../index.html" class="footer-home">이야기 우체국 홈으로</a>
+            <p>&copy; 2026 달님 동화</p>
+        </footer>
+
+    </div>
+</body>
+</html>
