@@ -1,0 +1,16 @@
+{
+    "id": "arcanaRide",
+    "name": "아르카나 라이드",
+    "type": "회전형 패밀리 어트랙션",
+    "theme": "신비로운 숲 아르카나, 정령의 나무",
+    "story": "힘을 잃은 정령의 나무를 다시 살리는 이야기",
+    "description": "정령의 나무 주변을 빙글빙글 도는 놀이기구예요. 단순해 보이지만 코너에서 속도가 붙어 생각보다 스릴이 있어요.",
+    "rideTime": "약 2분",
+    "features": [
+        "정령의 나무 주변 회전",
+        "정령의 노래를 가까이서 감상",
+        "코너에서 속도 증가"
+    ],
+    "bgImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction2_bg_new.png",
+    "charImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction2_char_new.png"
+}

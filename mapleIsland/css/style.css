@@ -1,0 +1,194 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: #fff8ec;
+    color: #333;
+}
+
+/* 1. 메인 제목 영역 */
+.site-header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    background: linear-gradient(#ffb547, #ff8a3d); /* 메이플 느낌의 주황색 */
+    color: #fff;
+}
+
+.site-title {
+    font-size: 42px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 #c45a12;
+}
+
+.site-subtitle {
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+/* 2. 메뉴바 */
+.ride-menu {
+    background: #5a3a1e; /* 나무 느낌 갈색 */
+    position: sticky;    /* 스크롤해도 상단에 붙어 있음 */
+    top: 0;
+}
+
+.ride-menu ul {
+    display: flex;             /* 메뉴를 가로로 나란히 */
+    justify-content: center;
+    list-style: none;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.ride-menu li {
+    flex: 1;                   /* 4개가 같은 너비로 나눠 가짐 */
+}
+
+.ride-menu a {
+    display: block;
+    padding: 16px 0;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 4px solid transparent;
+}
+
+.ride-menu a:hover {
+    background: #74502d;
+}
+
+/* 선택된 메뉴: JS에서 active 클래스를 옮겨 주면 됨 */
+.ride-menu a.active {
+    background: #74502d;
+    border-bottom-color: #ffb547;
+    color: #ffd27a;
+}
+
+/* 3. 콘텐츠 영역 */
+.ride-content {
+    max-width: 900px;
+    min-height: 300px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 화면이 좁을 때 */
+@media (max-width: 600px) {
+    .site-title {
+        font-size: 28px;
+    }
+    .ride-menu a {
+        padding: 12px 4px;
+        font-size: 13px;
+        word-break: keep-all; /* "아르카나 라이드"처럼 긴 이름이 글자 중간에서 끊기지 않게 */
+    }
+}
+
+/* ===== 4. 콘텐츠 상세 (AJAX로 채워지는 부분) ===== */
+.loading,
+.error {
+    text-align: center;
+    padding: 40px 0;
+    color: #999;
+}
+
+.error {
+    color: #d9480f;
+}
+
+.ride-theme {
+    font-size: 15px;
+    font-weight: normal;
+    color: #ff8a3d;
+}
+
+.ride-name {
+    margin-top: 4px;
+    font-size: 32px;
+    color: #5a3a1e;
+}
+
+/* 스토리 문구 강조 */
+.ride-story {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #fff3e0;
+    border-left: 5px solid #ff8a3d;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #7a4a1e;
+}
+
+/* 배경 위에 캐릭터 겹치기
+   - 부모(.ride-visual): 배경 이미지 + position: relative
+   - 자식(.ride-char): position: absolute 로 부모 안에서 위치를 잡음 */
+.ride-visual {
+    position: relative;
+    height: 360px;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;              /* 둥근 모서리 밖으로 삐져나온 부분 자르기 */
+    background-color: #ffe0b2;     /* 배경 이미지가 안 뜰 때 보일 색 */
+    background-size: cover;        /* 영역을 꽉 채우기 */
+    background-position: center;
+}
+
+.ride-char {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);   /* 가로 가운데 정렬 */
+    max-height: 90%;
+}
+
+/* features 태그 */
+.ride-tags {
+    display: flex;
+    flex-wrap: wrap;               /* 넘치면 다음 줄로 */
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.tag {
+    padding: 6px 12px;
+    background: #5a3a1e;
+    color: #ffd27a;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* 특징 / 설명 / 탑승시간 */
+.ride-info {
+    margin-top: 24px;
+}
+
+.ride-info h4 {
+    margin-top: 16px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #ffe0b2;
+    color: #5a3a1e;
+}
+
+.ride-info p {
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .ride-name {
+        font-size: 24px;
+    }
+    .ride-visual {
+        height: 240px;
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "id": "stoneExpress",
+    "name": "스톤 익스프레스",
+    "type": "패밀리 롤러코스터",
+    "theme": "신비로운 숲 아르카나",
+    "story": "흩어진 돌의 정령들을 찾아 섬 곳곳을 달리는 모험",
+    "description": "아이도 탈 수 있게 만든 패밀리 롤러코스터예요. 코스는 완만하지만 타 보면 꽤 빠르게 느껴지고, 같은 코스를 두 바퀴 돌아요.",
+    "rideTime": "약 2분",
+    "features": [
+        "어린이 탑승 가능",
+        "같은 코스 2회 주행",
+        "메이플 아일랜드 대기줄 1위"
+    ],
+    "bgImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction1_bg_new.png",
+    "charImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction1_char_new.png"
+}

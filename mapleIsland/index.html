@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메이플 놀이공원</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- 1. 사이트 메인 제목 -->
+    <header class="site-header">
+        <h1 class="site-title">메이플 놀이공원</h1>
+        <p class="site-subtitle">타고 싶은 놀이기구를 골라 보세요</p>
+    </header>
+
+    <!-- 2. 놀이기구 선택 메뉴바 (4개) -->
+    <nav class="ride-menu">
+        <ul>
+            <li><a href="#" id="menu-stoneExpress" class="active" onclick="loadRide('stoneExpress'); return false;">스톤 익스프레스</a></li>
+            <li><a href="#" id="menu-arcanaRide" onclick="loadRide('arcanaRide'); return false;">아르카나 라이드</a></li>
+            <li><a href="#" id="menu-eosTower" onclick="loadRide('eosTower'); return false;">에오스 타워</a></li>
+            <li><a href="#" id="menu-gyroSpin" onclick="loadRide('gyroSpin'); return false;">자이로 스핀</a></li>
+        </ul>
+    </nav>
+
+    <!-- 3. 콘텐츠 영역 (AJAX로 불러온 내용이 여기에 들어감) -->
+    <main id="ride-content" class="ride-content">
+        <p class="loading">불러오는 중...</p>
+    </main>
+
+    <script>
+        // 메뉴를 클릭하면 실행되는 함수
+        // rideId: 'stoneExpress', 'arcanaRide', 'eosTower', 'gyroSpin' 중 하나 (= data 폴더의 txt 파일 이름)
+        function loadRide(rideId) {
+            // 1. 메뉴 강조 바꾸기: 모든 메뉴에서 active를 빼고, 누른 메뉴에만 붙인다
+            const menus = document.querySelectorAll(".ride-menu a");
+            for (let i = 0; i < menus.length; i++) {
+                menus[i].classList.remove("active");
+            }
+            document.getElementById("menu-" + rideId).classList.add("active");
+
+            // 2. 불러올 파일 경로
+            const url = "data/" + rideId + ".txt";
+
+            // 3. 결과를 넣을 영역
+            const content = document.getElementById("ride-content");
+
+            // 4. AJAX 요청
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("GET", url);
+            xhttp.onload = function() {
+                // 파일을 못 찾았을 때 (404 등)
+                if (xhttp.status !== 200) {
+                    content.innerHTML = `<p class="error">정보를 불러오지 못했어요. (${xhttp.status})</p>`;
+                    return;
+                }
+
+                const data = JSON.parse(xhttp.responseText);
+
+                // features 배열을 태그(span) 여러 개로 바꾸기
+                let tagsHTML = "";
+                for (let i = 0; i < data.features.length; i++) {
+                    tagsHTML += `<span class="tag"># ${data.features[i]}</span>`;
+                }
+
+                let inputHTML = `
+                    <h3 class="ride-theme">${data.theme}</h3>
+                    <h2 class="ride-name">${data.name}</h2>
+                    <p class="ride-story">${data.story}</p>
+
+                    <div class="ride-visual" style="background-image: url('${data.bgImage}');">
+                        <img class="ride-char" src="${data.charImage}" alt="${data.name}">
+                    </div>
+
+                    <div class="ride-tags">${tagsHTML}</div>
+
+                    <div class="ride-info">
+                        <h4>놀이기구 특징</h4>
+                        <p>${data.type}</p>
+                        <h4>설명</h4>
+                        <p>${data.description}</p>
+                        <h4>탑승시간</h4>
+                        <p>${data.rideTime}</p>
+                    </div>
+                `;
+                content.innerHTML = inputHTML;
+            };
+            xhttp.send();
+        }
+
+        // 페이지가 열리면 첫 번째 놀이기구를 바로 보여 주기
+        loadRide("stoneExpress");
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+    "id": "eosTower",
+    "name": "에오스 타워",
+    "type": "회전 드롭 타워",
+    "theme": "장난감 왕국 루디브리엄",
+    "story": "타워 꼭대기에 있는 핑크빈을 만나러 정상까지 올라가는 이야기",
+    "description": "빙글빙글 돌면서 오르내리기를 반복하는 타워형 놀이기구예요. 아이들도 즐길 수 있게 속도와 높이를 맞췄고, 꼭대기에서는 석촌호수와 섬 전체가 내려다보여요.",
+    "rideTime": "약 2분",
+    "features": [
+        "회전하며 상승·하강 반복",
+        "정상에서 석촌호수 조망",
+        "가족 단위 인기"
+    ],
+    "bgImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction3_bg_new.png",
+    "charImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction3_char_new.png"
+}

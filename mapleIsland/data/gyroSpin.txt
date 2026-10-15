@@ -1,0 +1,16 @@
+{
+    "id": "gyroSpin",
+    "name": "자이로 스핀",
+    "type": "360도 회전 어트랙션 (리뉴얼)",
+    "theme": "보스 몬스터 핑크빈",
+    "story": "가운데에 핑크빈이 자리한 메이플 아일랜드 콘셉트",
+    "description": "원래 있던 놀이기구에 메이플스토리 테마를 입혀 새로 꾸몄어요. 빠르게 돌며 위아래, 좌우로 움직이고, 타는 동안 석촌호수와 롯데월드타워가 보여요.",
+    "rideTime": "약 3분",
+    "features": [
+        "360도 회전",
+        "중앙에 핑크빈",
+        "석촌호수·롯데월드타워 전망"
+    ],
+    "bgImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction4_bg.png",
+    "charImage": "https://lwi.nexon.com/mapleisland/brand/main/attraction4_char.png"
+}
