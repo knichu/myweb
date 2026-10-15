@@ -35,6 +35,7 @@ body {
     background: #5a3a1e; /* 나무 느낌 갈색 */
     position: sticky;    /* 스크롤해도 상단에 붙어 있음 */
     top: 0;
+    z-index: 10;         /* 아래 사진(position 있는 요소)보다 위에 보이게 */
 }
 
 .ride-menu ul {
@@ -191,4 +192,24 @@ body {
     .ride-visual {
         height: 240px;
     }
+}
+
+/* ===== 5. 푸터 ===== */
+.site-footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-home {
+    color: #5a3a1e;
+    text-decoration: none;
+    border-bottom: 1px solid #5a3a1e;
+}
+
+.footer-home:hover {
+    color: #ff8a3d;
+    border-bottom-color: #ff8a3d;
 }
