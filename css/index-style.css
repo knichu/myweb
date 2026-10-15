@@ -268,6 +268,73 @@ a.project-row:hover .project-name {
     color: #7c8299;
 }
 
+/* 메이플 아일랜드 미리보기 : 주황 제목 + 갈색 메뉴 + 카드 */
+.preview-maple {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #fff8ec;
+}
+
+.maple-title {
+    padding: 18px 0 14px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 1px 1px 0 #c45a12;
+    background: linear-gradient(#ffb547, #ff8a3d);
+}
+
+.maple-menu {
+    display: flex;
+    background-color: #5a3a1e;
+}
+
+.maple-menu span {
+    flex: 1;
+    padding: 7px 0;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 3px solid transparent;
+}
+
+.maple-menu .is-active {
+    color: #ffd27a;
+    background-color: #74502d;
+    border-bottom-color: #ffb547;
+}
+
+.maple-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    margin: 12px 16px 14px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.maple-visual {
+    flex: 1;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #ffe0b2, #ffb547);
+}
+
+.maple-line {
+    height: 6px;
+    border-radius: 3px;
+    background-color: #ffe0b2;
+}
+
+.maple-line.is-short {
+    width: 60%;
+}
+
 /* ---------- 5. 움직임 줄이기 ---------- */
 @media (prefers-reduced-motion: reduce) {
     .intro > * {
